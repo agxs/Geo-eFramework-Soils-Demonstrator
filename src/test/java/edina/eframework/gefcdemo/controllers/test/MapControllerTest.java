@@ -1,10 +1,10 @@
 package edina.eframework.gefcdemo.controllers.test;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import edina.eframework.gefcdemo.controllers.MapController;
-
-import static junit.framework.Assert.assertEquals;
 
 public class MapControllerTest {
 
