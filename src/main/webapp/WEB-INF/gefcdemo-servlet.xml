@@ -25,6 +25,7 @@
   <bean class="edina.eframework.gefcdemo.controllers.MapController" />
   <bean class="edina.eframework.gefcdemo.controllers.ProcessErosionController">
     <property name="velocityEngine" ref="velocityEngine" />
+    <property name="templateLocation" value="${wps.request}" />
   </bean>
   
 </beans>
