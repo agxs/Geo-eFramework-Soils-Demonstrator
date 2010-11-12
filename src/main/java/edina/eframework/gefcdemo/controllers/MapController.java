@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MapController {
   
   @RequestMapping(method=RequestMethod.GET)
-  String handleMap() {
+  public String handleMap() {
     return "gefcdemo";
   }
 }
