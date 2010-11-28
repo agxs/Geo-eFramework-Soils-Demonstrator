@@ -28,8 +28,4 @@
       </bean>
     </property>
   </bean>
-  
-  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <property name="location" value="classpath:gefcdemo.properties" />
-  </bean>
 </beans>

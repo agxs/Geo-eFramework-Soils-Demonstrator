@@ -8,7 +8,7 @@
 
   <mvc:annotation-driven/>
   
-  <mvc:view-controller path="/" view-name="redirect:/map" />
+  <mvc:view-controller path="/" view-name="redirect:/gefcdemo" />
   
   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/WEB-INF/jsp/" />
@@ -26,6 +26,10 @@
   <bean class="edina.eframework.gefcdemo.controllers.ProcessErosionController">
     <property name="velocityEngine" ref="velocityEngine" />
     <property name="templateLocation" value="${wps.request}" />
+    <property name="wpsServer" value="${wps.url}" />
   </bean>
   
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="classpath:gefcdemo.properties" />
+  </bean>
 </beans>

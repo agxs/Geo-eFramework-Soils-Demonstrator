@@ -3,6 +3,7 @@ package edina.eframework.gefcdemo.controllers;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +30,12 @@ public class ProcessErosionController {
   public void setTemplateLocation( String templateLocation ) {
     this.templateLocation = templateLocation;
   }
+  
+  private URL wpsServer;
+  
+  public void setWpsServer( URL wpsServer ) {
+    this.wpsServer = wpsServer;
+  }
 
   @RequestMapping(method = RequestMethod.GET)
   public String handleProcess( SoilErosionWps params ) {
@@ -47,6 +54,7 @@ public class ProcessErosionController {
     wpsRequest.close();
     
     System.out.println( wpsRequest.toString() );
+    System.out.println( "Submitting to " + wpsServer );
     // generate wps request
     // store data
     // run WmsConfigurationGenerator
