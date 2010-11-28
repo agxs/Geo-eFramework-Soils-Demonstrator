@@ -10,6 +10,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import edina.eframework.gefcdemo.domain.SoilErosionWps;
 
@@ -29,13 +30,18 @@ public class ProcessErosionController {
     this.templateLocation = templateLocation;
   }
 
-  @RequestMapping
-  public String handleProcess( SoilErosionWps params ) throws IOException {
+  @RequestMapping(method = RequestMethod.GET)
+  public String handleProcess( SoilErosionWps params ) {
+    return "wps";
+  }
+  
+  @RequestMapping(method = RequestMethod.POST)
+  public String handleProcessResult( SoilErosionWps params ) throws IOException {
     
     Writer wpsRequest = new StringWriter();
     Map<String, Object> velocityMap = new HashMap<String,Object>();
     
-    velocityMap.put( "test", "a url" );
+    velocityMap.put( "params", params );
     
     VelocityEngineUtils.mergeTemplate( velocityEngine, templateLocation, velocityMap, wpsRequest );
     wpsRequest.close();

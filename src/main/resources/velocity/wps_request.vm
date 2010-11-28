@@ -1,5 +1,4 @@
-${test}
-
+<?xml version="1.0" encoding="UTF-8"?>
 <wps:Execute service="WPS" version="1.0.0"
     xmlns:wps="http://www.opengis.net/wps/1.0.0"
     xmlns:ows="http://www.opengis.net/ows/1.1"
@@ -10,15 +9,15 @@ ${test}
   <wps:DataInputs>
     <wps:Input>
       <ows:Identifier>nz_woody</ows:Identifier>
-      <wps:Reference mimeType="image/tiff" xlink:href="http://roj.zen.landcareresearch.co.nz:8080/geoserver/wcs?service=WCS&amp;version=1.0.0&amp;request=GetCoverage&amp;coverage=test:nz_woody_geo_tiff&amp;styles=&amp;BBOX=2715659,6494334,2752259,6522734&amp;RESX=100&amp;RESY=100&amp;crs=EPSG:27200&amp;format=GEOTIFF" xmlns:xlink="http://www.w3.org/1999/xlink" />
+      <wps:Reference mimeType="image/tiff" xlink:href="${params.landcoverWcs}" xmlns:xlink="http://www.w3.org/1999/xlink" />
     </wps:Input>
     <wps:Input>
       <ows:Identifier>nz_r2</ows:Identifier>
-      <wps:Reference mimeType="image/tiff" xlink:href="http://roj.zen.landcareresearch.co.nz:8080/geoserver/wcs?service=WCS&amp;version=1.0.0&amp;request=GetCoverage&amp;coverage=test:nz_r2_geo_tiff&amp;styles=&amp;BBOX=2715659,6494334,2752259,6522734&amp;RESX=100&amp;RESY=100&amp;crs=EPSG:27200&amp;format=GEOTIFF" xmlns:xlink="http://www.w3.org/1999/xlink" />
+      <wps:Reference mimeType="image/tiff" xlink:href="${params.rainfallWcs}" xmlns:xlink="http://www.w3.org/1999/xlink" />
     </wps:Input>
     <wps:Input>
       <ows:Identifier>nz_ak2</ows:Identifier>
-      <wps:Reference mimeType="image/tiff" xlink:href="http://roj.zen.landcareresearch.co.nz:8080/geoserver/wcs?service=WCS&amp;version=1.0.0&amp;request=GetCoverage&amp;coverage=test:nz_ak2_geo_tiff&amp;styles=&amp;BBOX=2715659,6494334,2752259,6522734&amp;RESX=100&amp;RESY=100&amp;crs=EPSG:27200&amp;format=GEOTIFF" xmlns:xlink="http://www.w3.org/1999/xlink" />
+      <wps:Reference mimeType="image/tiff" xlink:href="${params.erosionWcs}" xmlns:xlink="http://www.w3.org/1999/xlink" />
     </wps:Input>
     <wps:Input>
       <ows:Identifier>nz_woody_lookup</ows:Identifier>
@@ -39,7 +38,7 @@ ${test}
     <wps:Input>
       <ows:Identifier xmlns:ns1="http://www.opengis.net/ows/1.1">rain_factor</ows:Identifier>
       <wps:Data>
-        <wps:LiteralData dataType="xs:double">1</wps:LiteralData>
+        <wps:LiteralData dataType="xs:double">${params.rainfallExponent}</wps:LiteralData>
       </wps:Data>
     </wps:Input>
   </wps:DataInputs>
