@@ -40,5 +40,6 @@
         </tr>
       </table>
     </form:form>
+    <p><a href="?test=true">Download Image</a></p>
   </body>
 </html>

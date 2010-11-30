@@ -3,6 +3,7 @@ package edina.eframework.gefcdemo.controllers;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
@@ -11,12 +12,19 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.SimpleHttpConnectionManager;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.velocity.app.VelocityEngine;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.Namespace;
+import org.jdom.input.SAXBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +57,31 @@ public class ProcessErosionController {
   @RequestMapping(method = RequestMethod.GET)
   public String handleProcess( SoilErosionWps params ) {
     return "wps";
+  }
+  
+  @RequestMapping(method = RequestMethod.GET, params="test=true")
+  public void handleTest( SoilErosionWps params, HttpServletResponse response ) throws IOException, JDOMException {
+    Namespace wpsNs = Namespace.getNamespace( "http://www.opengis.net/wps/1.0.0" );
+    
+    Document result = new SAXBuilder().build( "/tmp/result.xml" );
+    Element root = result.getRootElement();
+    Element processOutputs = root.getChild( "ProcessOutputs", wpsNs );
+    Element output = processOutputs.getChild( "Output", wpsNs );
+    Element reference = output.getChild( "Reference", wpsNs );
+    String resultUrl = reference.getAttributeValue( "href" );
+    
+    System.out.println( "Output " + resultUrl );
+    
+    InputStream wpsStream = new URL( resultUrl ).openStream();
+    response.setContentType( "image/tiff" );
+    OutputStream wpsOutput = response.getOutputStream();
+    byte[] buffer = new byte[4096];
+    int i;
+    while ( ( i = wpsStream.read( buffer ) ) != -1 ) {
+      wpsOutput.write( buffer, 0, i );
+    }
+    wpsOutput.flush();
+    wpsStream.close();
   }
   
   @RequestMapping(method = RequestMethod.POST)
