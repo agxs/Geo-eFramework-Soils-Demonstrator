@@ -22,7 +22,7 @@
     <wps:Input>
       <ows:Identifier>nz_woody_lookup</ows:Identifier>
       <wps:Data>
-        <wps:ComplexData schema="http://tikouka/schemas/RasterTable.xsd">
+        <wps:ComplexData schema="http://dlib-bauer.ucs.ed.ac.uk/RasterTable.xsd">
           <RasterTable name="nz_woody_lookup">
             <Table id="0" key="Undefined" value="0"/>
             <Table id="1" key="Water" value="0"/>
@@ -31,6 +31,8 @@
             <Table id="4" key="Herbaceous" value="10"/>
             <Table id="6" key="Primarily Bare" value="10"/>
             <Table id="7" key="Snow" value="10"/>
+            <Table id="10" key="Herbaceous" value="10" />
+            <Table id="128" key="Undefined" value="0" />
           </RasterTable>
         </wps:ComplexData>
       </wps:Data>

@@ -11,15 +11,15 @@
       <table>
         <tr>
           <td>Rainfall WCS:</td>
-          <td><form:input path="rainfallWcs" value="http://test/rainfall" /></td>
+          <td><form:input path="rainfallWcs" value="http://localhost/rainfall.tiff" /></td>
         </tr>
         <tr>
           <td>Landcover WCS:</td>
-          <td><form:input path="landcoverWcs" value="http://test/landcover" /></td>
+          <td><form:input path="landcoverWcs" value="http://localhost/landcover.tiff" /></td>
         </tr>
         <tr>
           <td>Erosion Terrain WCS:</td>
-          <td><form:input path="erosionWcs" value="http://test/erosion" /></td>
+          <td><form:input path="erosionWcs" value="http://localhost/erosion.tiff" /></td>
         </tr>
         <tr>
           <td>Rainfall Exponent:</td>
