@@ -90,6 +90,8 @@ public class ProcessErosionController {
     while ( ( i = wpsStream.read( buffer ) ) != -1 ) {
       wpsOutput.write( buffer, 0, i );
     }
+    wpsOutput.flush();
+    wpsOutput.close();
 
     // generate wps request
     // store data
