@@ -72,16 +72,21 @@ public class ProcessErosionController {
     
     System.out.println( "Output " + resultUrl );
     
-    InputStream wpsStream = new URL( resultUrl ).openStream();
-    response.setContentType( "image/tiff" );
-    OutputStream wpsOutput = response.getOutputStream();
-    byte[] buffer = new byte[4096];
-    int i;
-    while ( ( i = wpsStream.read( buffer ) ) != -1 ) {
-      wpsOutput.write( buffer, 0, i );
+    InputStream wpsStream = null;
+    try {
+      wpsStream = new URL( resultUrl ).openStream();
+      response.setContentType( "image/tiff" );
+      OutputStream wpsOutput = response.getOutputStream();
+      byte[] buffer = new byte[4096];
+      int i;
+      while ( ( i = wpsStream.read( buffer ) ) != -1 ) {
+        wpsOutput.write( buffer, 0, i );
+      }
+      wpsOutput.flush();
     }
-    wpsOutput.flush();
-    wpsStream.close();
+    finally {
+      try { wpsStream.close(); } catch ( Exception e ) {}
+    }
   }
   
   @RequestMapping(method = RequestMethod.POST)
@@ -116,15 +121,22 @@ public class ProcessErosionController {
 
     client.executeMethod( post );
 
-    InputStream wpsStream = post.getResponseBodyAsStream();
-    FileOutputStream wpsOutput = new FileOutputStream( "/tmp/result.xml" );
-    byte[] buffer = new byte[4096];
-    int i;
-    while ( ( i = wpsStream.read( buffer ) ) != -1 ) {
-      wpsOutput.write( buffer, 0, i );
+    InputStream wpsStream = null;
+    FileOutputStream wpsOutput = null;
+    try {
+      wpsStream = post.getResponseBodyAsStream();
+      wpsOutput = new FileOutputStream( "/tmp/result.xml" );
+      byte[] buffer = new byte[4096];
+      int i;
+      while ( ( i = wpsStream.read( buffer ) ) != -1 ) {
+        wpsOutput.write( buffer, 0, i );
+      }
+      wpsOutput.flush();
     }
-    wpsOutput.flush();
-    wpsOutput.close();
+    finally {
+      try { wpsStream.close(); } catch ( Exception e ) {}
+      try { wpsOutput.close(); } catch ( Exception e ) {}
+    }
 
     // generate wps request
     // store data
