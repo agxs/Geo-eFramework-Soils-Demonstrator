@@ -1,5 +1,6 @@
 package edina.eframework.gefcdemo.controllers;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.SimpleHttpConnectionManager;
@@ -20,17 +24,13 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.velocity.app.VelocityEngine;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.Namespace;
-import org.jdom.input.SAXBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import edina.eframework.gefcdemo.domain.SoilErosionWps;
+import edina.eframework.gefcdemo.generated.wps.ExecuteResponse;
 
 @Controller
 @RequestMapping(value="/processmodel")
@@ -60,15 +60,17 @@ public class ProcessErosionController {
   }
   
   @RequestMapping(method = RequestMethod.GET, params="test=true")
-  public void handleTest( SoilErosionWps params, HttpServletResponse response ) throws IOException, JDOMException {
-    Namespace wpsNs = Namespace.getNamespace( "http://www.opengis.net/wps/1.0.0" );
+  public void handleTest( SoilErosionWps params, HttpServletResponse response )
+    throws IOException, JAXBException {
+   
+    JAXBContext jaxbContext = JAXBContext.newInstance("edina.eframework.gefcdemo.generated.wps");
+    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
     
-    Document result = new SAXBuilder().build( "/tmp/result.xml" );
-    Element root = result.getRootElement();
-    Element processOutputs = root.getChild( "ProcessOutputs", wpsNs );
-    Element output = processOutputs.getChild( "Output", wpsNs );
-    Element reference = output.getChild( "Reference", wpsNs );
-    String resultUrl = reference.getAttributeValue( "href" );
+    ExecuteResponse executeResponse =
+      (ExecuteResponse)unmarshaller.unmarshal( new File( "/tmp/result.xml" ) );
+
+    //executeResponse.getStatus().getProcessAccepted(); // TODO check for failed
+    String resultUrl = executeResponse.getProcessOutputs().getOutput().get( 0 ).getReference().getHref();
     
     System.out.println( "Output " + resultUrl );
     
