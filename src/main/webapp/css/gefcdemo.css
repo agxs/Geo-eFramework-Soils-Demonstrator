@@ -1,0 +1,35 @@
+#map {
+  width: 600px;
+  height: 400px;
+  float: right;
+}
+
+#content {
+  float: left;
+  width: 200px;
+  height: 200px;
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+}
+
+#variables {
+  float: left;
+  width: 200px;
+  height: 200px;
+  border: 2px;
+}
+
+#coverages {
+  float: left;
+  width: 200px;
+  height: 200px;
+  border: 2px;
+}
+
+#process {
+  float: left;
+  width: 200px;
+  height: 200px;
+  border: 2px;
+}

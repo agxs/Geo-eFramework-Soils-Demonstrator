@@ -7,12 +7,12 @@
     <title>GeFC Demonstrator</title>
     <link rel="stylesheet" href="./theme/default/style.css" type="text/css" />
     <link rel="stylesheet" href="./theme/default/google.css" type="text/css" />
+    <link rel="stylesheet" href="./css/gefcdemo.css" type="text.css" />
     <script src="./OpenLayers.js" type="text/javascript"></script>
     <script src='http://maps.google.com/maps?file=api&amp;v=2&amp;'></script>
   </head>
   <body>
-    <p>You can see me! - map servlet</p>
-    <div style="width:600px; height:400px" id="map"></div>
+    <div class="map" id="map"></div>
     <script type="text/javascript" defer="defer">
       var map = new OpenLayers.Map('map');
       var gmap = new OpenLayers.Layer.Google(
@@ -23,5 +23,9 @@
       
       map.zoomToMaxExtent();
     </script>
+    <div class="content"><p>This is the content pane.</p></div>
+    <div class="variables"><p>This is the variables pane.</p></div>
+    <div class="coverages"><p>This is the coverages pane.</p></div>
+    <div class="process"><p>This is the process button.</p></div>
   </body>
 </html>
