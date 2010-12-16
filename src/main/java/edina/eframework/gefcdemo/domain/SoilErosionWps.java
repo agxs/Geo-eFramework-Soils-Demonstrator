@@ -123,7 +123,7 @@ public class SoilErosionWps {
    * URL should include all the GET parameters required to actually return a
    * correct document.
    * 
-   * @param rainfallWcs a GetCapabilities URL.
+   * @param landcoverWcs a GetCapabilities URL.
    */
   public void setLandcoverWcs( URL landcoverWcs ) {
     this.landcoverWcs = landcoverWcs;
@@ -145,7 +145,7 @@ public class SoilErosionWps {
    * URL should include all the GET parameters required to actually return a
    * correct document.
    * 
-   * @param rainfallWcs a GetCapabilities URL.
+   * @param erosionWcs a GetCapabilities URL.
    */
   public void setErosionWcs( URL erosionWcs ) {
     this.erosionWcs = erosionWcs;
