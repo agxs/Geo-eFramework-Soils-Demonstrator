@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+    "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+  <definition name="standardLayout" template="/WEB-INF/jsp/gefcdemo.jsp" />
+  
+  <definition name="gefcdemo" extends="standardLayout">
+    <put-attribute name="map" value="map" />
+    <put-attribute name="controls" value="controls" />
+    <put-attribute name="content" value="content" />
+  </definition>
+  
+  <definition name="map" template="/WEB-INF/jsp/map.jsp" />
+  <definition name="controls" template="/WEB-INF/jsp/controls.jsp" />
+  <definition name="content" template="/WEB-INF/jsp/content.jsp" />
+  
+  <!--  Temp -->
+  <definition name="wps" template="/WEB-INF/jsp/wps.jsp" />
+</tiles-definitions>

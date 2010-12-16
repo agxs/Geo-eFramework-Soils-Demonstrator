@@ -9,17 +9,17 @@
   <mvc:annotation-driven/>
   
   <mvc:view-controller path="/" view-name="redirect:/gefcdemo" />
+
+  <!-- View Resolver -->
   
-  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    <property name="prefix" value="/WEB-INF/jsp/" />
-    <property name="suffix" value=".jsp" />
+  <bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+    <property name="definitions">
+      <value>/WEB-INF/tiles.xml</value>
+    </property>
   </bean>
-      
-  <!-- Handler Mapping, maps request to controller -->
-<!-- <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/> -->
-  
-  <!-- Handler Method Resolver, maps request to method name -->
-<!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/> -->
+  <bean class="org.springframework.js.ajax.AjaxUrlBasedViewResolver">
+    <property name="viewClass" value="org.springframework.js.ajax.tiles2.AjaxTilesView" />
+  </bean>
   
   <!-- Main interface controller -->
   <bean class="edina.eframework.gefcdemo.controllers.MapController" />

@@ -22,7 +22,7 @@ public class MapControllerTest {
   
   @Test
   public void testHandleMap() {
-    String viewName = mapController.handleMap();
+    String viewName = mapController.handleMap( null );
     assertEquals( "Unexpected view name returned from MapController.",
                   "gefcdemo", viewName );
   }

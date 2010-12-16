@@ -1,3 +1,4 @@
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -12,20 +13,14 @@
     <script src='http://maps.google.com/maps?file=api&amp;v=2&amp;'></script>
   </head>
   <body>
-    <div class="map" id="map"></div>
-    <script type="text/javascript" defer="defer">
-      var map = new OpenLayers.Map('map');
-      var gmap = new OpenLayers.Layer.Google(
-          "Google Streets", // the default
-          {numZoomLevels: 20}
-        );
-      map.addLayer(gmap);
-      
-      map.zoomToMaxExtent();
-    </script>
-    <div class="content"><p>This is the content pane.</p></div>
-    <div class="variables"><p>This is the variables pane.</p></div>
-    <div class="coverages"><p>This is the coverages pane.</p></div>
-    <div class="process"><p>This is the process button.</p></div>
+    <div class="map" id="map">
+      <tiles:insertAttribute name="map" />
+    </div>
+    <div id="content">
+      <tiles:insertAttribute name="content" />
+    </div>
+    <div id="controls">
+      <tiles:insertAttribute name="controls" />
+    </div>
   </body>
 </html>
