@@ -7,7 +7,7 @@
     <title>GeFC Demonstrator</title>
     <link rel="stylesheet" href="./theme/default/style.css" type="text/css" />
     <link rel="stylesheet" href="./theme/default/google.css" type="text/css" />
-    <link rel="stylesheet" href="./css/gefcdemo.css" type="text.css" />
+    <link rel="stylesheet" href="./css/gefcdemo.css" type="text/css" />
     <script src="./OpenLayers.js" type="text/javascript"></script>
     <script src='http://maps.google.com/maps?file=api&amp;v=2&amp;'></script>
   </head>
