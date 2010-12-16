@@ -9,10 +9,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import edina.eframework.gefcdemo.controllers.MapController;
+import edina.eframework.gefcdemo.helpers.MockServletContextWebContextLoader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"file:src/main/webapp/WEB-INF/applicationContext.xml",
-                       "file:src/main/webapp/WEB-INF/gefcdemo-servlet.xml"})
+@ContextConfiguration(loader = MockServletContextWebContextLoader.class,
+                      locations = {"file:src/main/webapp/WEB-INF/applicationContext.xml",
+                                   "file:src/main/webapp/WEB-INF/gefcdemo-servlet.xml"})
 public class MapControllerTest {
 
   @Autowired
@@ -22,6 +24,6 @@ public class MapControllerTest {
   public void testHandleMap() {
     String viewName = mapController.handleMap();
     assertEquals( "Unexpected view name returned from MapController.",
-                  "gefcdemo", viewName ); 
+                  "gefcdemo", viewName );
   }
 }
