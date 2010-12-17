@@ -149,6 +149,6 @@ public class ProcessErosionController {
     }
     // return data
     
-    return "wps";
+    return "gefcdemo";
   }
 }
