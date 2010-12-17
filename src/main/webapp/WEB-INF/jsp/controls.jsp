@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <form:form id="soilErosionForm" commandName="soilErosionWps" action="processmodel" >
   <div id="variables">
     <table>
@@ -118,5 +119,8 @@
         params : { fragments : "controls" }
       }));
     </script>
+    <c:if test="${!empty wpsResponse.outputUrl}">
+      <a href="<c:out value="${wpsResponse.outputUrl}" />">Download Output</a>
+    </c:if>
   </div>
 </form:form>

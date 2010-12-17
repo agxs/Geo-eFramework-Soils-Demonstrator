@@ -26,10 +26,12 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.velocity.VelocityEngineUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import edina.eframework.gefcdemo.domain.SoilErosionWps;
+import edina.eframework.gefcdemo.domain.WpsResponse;
 import edina.eframework.gefcdemo.generated.wps.ExecuteResponse;
 
 @Controller
@@ -59,40 +61,11 @@ public class ProcessErosionController {
     return "wps";
   }
   
-  @RequestMapping(method = RequestMethod.GET, params="test=true")
-  public void handleTest( SoilErosionWps params, HttpServletResponse response )
-    throws IOException, JAXBException {
-   
-    JAXBContext jaxbContext = JAXBContext.newInstance("edina.eframework.gefcdemo.generated.wps");
-    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-    
-    ExecuteResponse executeResponse =
-      (ExecuteResponse)unmarshaller.unmarshal( new File( "/tmp/result.xml" ) );
-
-    //executeResponse.getStatus().getProcessAccepted(); // TODO check for failed
-    String resultUrl = executeResponse.getProcessOutputs().getOutput().get( 0 ).getReference().getHref();
-    
-    System.out.println( "Output " + resultUrl );
-    
-    InputStream wpsStream = null;
-    try {
-      wpsStream = new URL( resultUrl ).openStream();
-      response.setContentType( "image/tiff" );
-      OutputStream wpsOutput = response.getOutputStream();
-      byte[] buffer = new byte[4096];
-      int i;
-      while ( ( i = wpsStream.read( buffer ) ) != -1 ) {
-        wpsOutput.write( buffer, 0, i );
-      }
-      wpsOutput.flush();
-    }
-    finally {
-      try { wpsStream.close(); } catch ( Exception e ) {}
-    }
-  }
-  
   @RequestMapping(method = RequestMethod.POST)
-  public String handleProcessResult( SoilErosionWps params ) throws IOException {
+  public String handleProcessResult( SoilErosionWps params,
+                                     @ModelAttribute WpsResponse wpsResponse,
+                                     HttpServletResponse response )
+    throws IOException, JAXBException {
     
     Writer wpsRequest = new StringWriter();
     Map<String, Object> velocityMap = new HashMap<String,Object>();
@@ -139,6 +112,19 @@ public class ProcessErosionController {
       try { wpsStream.close(); } catch ( Exception e ) {}
       try { wpsOutput.close(); } catch ( Exception e ) {}
     }
+    
+    JAXBContext jaxbContext = JAXBContext.newInstance("edina.eframework.gefcdemo.generated.wps");
+    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+    
+    ExecuteResponse executeResponse =
+      (ExecuteResponse)unmarshaller.unmarshal( new File( "/tmp/result.xml" ) );
+
+    //executeResponse.getStatus().getProcessAccepted(); // TODO check for failed
+    String resultUrl = executeResponse.getProcessOutputs().getOutput().get( 0 ).getReference().getHref();
+    
+    System.out.println( "Output " + resultUrl );
+    wpsResponse.setOutputUrl( new URL( resultUrl ) );
+    wpsResponse.setStatus( 200 );
 
     // generate wps request
     // store data
