@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
@@ -55,6 +54,12 @@ public class ProcessErosionController {
   public void setWpsServer( URL wpsServer ) {
     this.wpsServer = wpsServer;
   }
+  
+  private String wpsOutputDir;
+  
+  public void setWpsOutputDir( String wpsOutputDir ) {
+    this.wpsOutputDir = wpsOutputDir;
+  }
 
   @RequestMapping(method = RequestMethod.GET)
   public String handleProcess( SoilErosionWps params ) {
@@ -63,8 +68,7 @@ public class ProcessErosionController {
   
   @RequestMapping(method = RequestMethod.POST)
   public String handleProcessResult( SoilErosionWps params,
-                                     @ModelAttribute WpsResponse wpsResponse,
-                                     HttpServletResponse response )
+                                     @ModelAttribute WpsResponse wpsResponse )
     throws IOException, JAXBException {
     
     Writer wpsRequest = new StringWriter();
@@ -96,28 +100,11 @@ public class ProcessErosionController {
 
     client.executeMethod( post );
 
-    InputStream wpsStream = null;
-    FileOutputStream wpsOutput = null;
-    try {
-      wpsStream = post.getResponseBodyAsStream();
-      wpsOutput = new FileOutputStream( "/tmp/result.xml" );
-      byte[] buffer = new byte[4096];
-      int i;
-      while ( ( i = wpsStream.read( buffer ) ) != -1 ) {
-        wpsOutput.write( buffer, 0, i );
-      }
-      wpsOutput.flush();
-    }
-    finally {
-      try { wpsStream.close(); } catch ( Exception e ) {}
-      try { wpsOutput.close(); } catch ( Exception e ) {}
-    }
-    
     JAXBContext jaxbContext = JAXBContext.newInstance("edina.eframework.gefcdemo.generated.wps");
     Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
     
     ExecuteResponse executeResponse =
-      (ExecuteResponse)unmarshaller.unmarshal( new File( "/tmp/result.xml" ) );
+      (ExecuteResponse)unmarshaller.unmarshal( post.getResponseBodyAsStream() );
 
     //executeResponse.getStatus().getProcessAccepted(); // TODO check for failed
     String resultUrl = executeResponse.getProcessOutputs().getOutput().get( 0 ).getReference().getHref();
@@ -126,6 +113,27 @@ public class ProcessErosionController {
     wpsResponse.setOutputUrl( new URL( resultUrl ) );
     wpsResponse.setStatus( 200 );
 
+    // Save the WPS output data to a file mapserver can use
+    File resultOutputFile = new File( wpsOutputDir + "/aseales/result.tiff" );
+    resultOutputFile.getParentFile().mkdirs();
+    FileOutputStream resultFileStream = new FileOutputStream( resultOutputFile );
+    InputStream resultInputFile = null;
+    try {
+      resultInputFile = wpsResponse.getOutputUrl().openStream();
+      byte[] buffer = new byte[4096];
+      int i;
+      while ( ( i = resultInputFile.read( buffer ) ) != -1 ) {
+        resultFileStream.write( buffer, 0, i );
+      }
+      resultFileStream.flush();
+    }
+    finally {
+      try { resultInputFile.close(); } catch ( Exception e ) {}
+      try { resultFileStream.close(); } catch ( Exception e ) {}
+    }
+    
+    System.out.println( "Result saved to " + resultOutputFile );
+    
     // generate wps request
     // store data
     // run WmsConfigurationGenerator

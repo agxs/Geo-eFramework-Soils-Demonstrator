@@ -27,6 +27,7 @@
     <property name="velocityEngine" ref="velocityEngine" />
     <property name="templateLocation" value="${wps.request}" />
     <property name="wpsServer" value="${wps.url}" />
+    <property name="wpsOutputDir" value="${wps.output.location}" />
   </bean>
   
   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
