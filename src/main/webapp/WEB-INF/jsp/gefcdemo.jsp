@@ -16,9 +16,14 @@
     <script src="<c:url value="/resources/dojo/dojo.js" />" type="text/javascript"></script>
     <script src="<c:url value="/resources/spring/Spring.js" />" type="text/javascript"></script>
     <script src="<c:url value="/resources/spring/Spring-Dojo.js" />" type="text/javascript"></script>
+    <script type="text/javascript">
+      function init() {
+        dojo.connect( Spring.RemotingHandler.prototype, 'handleResponse', this, 'enableResult' );
+      }
+    </script>
   </head>
-  <body>
-    <div class="map" id="map">
+  <body onload="init()">
+    <div id="map">
       <tiles:insertAttribute name="map" />
     </div>
     <div id="content">
