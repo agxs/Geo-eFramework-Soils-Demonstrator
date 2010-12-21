@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import edina.eframework.gefcdemo.domain.SoilErosionWps;
 import edina.eframework.gefcdemo.domain.WpsResponse;
 import edina.eframework.gefcdemo.generated.wps.ExecuteResponse;
+import edina.eframework.gefcdemo.portrayal.MapserverGenerator;
 
 @Controller
 @RequestMapping(value="/processmodel")
@@ -58,6 +59,12 @@ public class ProcessErosionController {
   
   public void setWpsOutputDir( String wpsOutputDir ) {
     this.wpsOutputDir = wpsOutputDir;
+  }
+  
+  private MapserverGenerator mapserverGenerator;
+  
+  public void setMapserverGenerator( MapserverGenerator mapserverGenerator ) {
+    this.mapserverGenerator = mapserverGenerator;
   }
 
   @RequestMapping(method = RequestMethod.GET)
@@ -132,6 +139,8 @@ public class ProcessErosionController {
     }
     
     System.out.println( "Result saved to " + resultOutputFile );
+    
+    mapserverGenerator.generateWmsConfiguration( "aseales" );
     
     // generate wps request
     // store data

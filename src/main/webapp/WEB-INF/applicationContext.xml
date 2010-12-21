@@ -5,6 +5,12 @@
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
+  <bean id="mapserverGenerator" class="edina.eframework.gefcdemo.portrayal.MapserverGenerator">
+    <property name="velocityEngine" ref="velocityEngine" />
+    <property name="templateLocation" value="${wms.mapfile}" />
+    <property name="wpsOutputDir" value="${wps.output.location}" />
+  </bean>
+
   <!-- Velocity Configuration beans -->
   <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
     <property name="resourceLoaderPath" value="classpath:/velocity/" />
@@ -27,5 +33,9 @@
         <property name="refreshDelay" value="10000" />
       </bean>
     </property>
+  </bean>
+  
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="classpath:gefcdemo.properties" />
   </bean>
 </beans>

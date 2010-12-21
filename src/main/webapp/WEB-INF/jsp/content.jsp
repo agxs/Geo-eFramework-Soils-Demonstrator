@@ -40,7 +40,7 @@
     }
     result = new OpenLayers.Layer.WMS(
         "gefc_result",
-        "http://localhost/cgi-bin/mapserv?map=/var/www/data/aseales/aseales.map&cacheControl="
+        "http://localhost/cgi-bin/mapserv?map=/var/www/data/aseales/result.map&cacheControl="
             + (cacheControl++) + "&",
         {
           layers : "gefc_result",

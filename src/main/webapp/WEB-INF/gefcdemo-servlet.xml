@@ -28,6 +28,7 @@
     <property name="templateLocation" value="${wps.request}" />
     <property name="wpsServer" value="${wps.url}" />
     <property name="wpsOutputDir" value="${wps.output.location}" />
+    <property name="mapserverGenerator" ref="mapserverGenerator" />
   </bean>
   
   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
