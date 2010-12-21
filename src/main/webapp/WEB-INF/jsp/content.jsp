@@ -9,15 +9,15 @@
     <label for="rainfallCheckBox">Rainfall</label>
   </li>
   <li>
-    <input id="landcoverCheckBox" type="checkbox" />
+    <input id="landcoverCheckBox" type="checkbox" onclick="toggleLayer(landcover, 'landcoverCheckBox')" />
     <label for="landcoverCheckBox">Landcover</label>
   </li>
   <li>
-    <input id="erosionCheckBox" type="checkbox" />
+    <input id="erosionCheckBox" type="checkbox" onclick="toggleLayer(erosion, 'erosionCheckBox')" />
     <label for="erosionCheckBox">Erosion</label>
   </li>
   <li>
-    <input id="resultCheckbox" type="checkbox" disabled="disabled" onclick="gmap.display(false)") />
+    <input id="resultCheckBox" type="checkbox" disabled="disabled" onclick="toggleLayer(result, 'resultCheckBox')" />
     <label for="resultCheckBox">Result</label>
   </li>
 </ul>
@@ -25,11 +25,31 @@
 <script type="text/javascript">
   function toggleLayer( layer, elementName ) {
     var element = document.getElementById( elementName );
-    layer.display( element.checked );
+    if ( element.checked ) {
+      map.addLayer( layer );
+    } else {
+      map.removeLayer( layer );
+    }
   }
   function enableResult() {
-    var resultCheckbox = document.getElementById( "resultCheckbox" );
-    resultCheckbox.removeAttribute( "disabled" );
-    // Add new layer to openlayers goes here
+    var resultCheckBox = document.getElementById( "resultCheckBox" );
+    resultCheckBox.removeAttribute( "disabled" );
+    
+    if ( result != null ) {
+      result.destroy();
+    }
+    result = new OpenLayers.Layer.WMS(
+        "gefc_result",
+        "http://localhost/cgi-bin/mapserv?map=/var/www/data/aseales/aseales.map&cacheControl="
+            + (cacheControl++) + "&",
+        {
+          layers : "gefc_result",
+          image : "image/png",
+          transparent : true
+        }
+      );
+    if ( resultCheckBox.checked ) {
+      map.addLayer( result );
+    }
   }
 </script>

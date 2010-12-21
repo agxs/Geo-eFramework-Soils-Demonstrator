@@ -17,6 +17,8 @@
     <script src="<c:url value="/resources/spring/Spring.js" />" type="text/javascript"></script>
     <script src="<c:url value="/resources/spring/Spring-Dojo.js" />" type="text/javascript"></script>
     <script type="text/javascript">
+      var result = null;
+      var cacheControl = 0;
       function init() {
         dojo.connect( Spring.RemotingHandler.prototype, 'handleResponse', this, 'enableResult' );
       }
