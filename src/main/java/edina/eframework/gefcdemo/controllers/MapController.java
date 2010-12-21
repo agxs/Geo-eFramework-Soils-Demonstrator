@@ -19,9 +19,9 @@ public class MapController {
     params.setRainfallExponent( 2.0 );
     params.setGrowFactor( 0.0 );
     params.setStreamConnectivity( 1.0 );
-    params.setRainfallWcs( new URL( "http://localhost/data/rainfall_smaller.tiff" ) );
+    params.setRainfallWcs( new URL( "http://localhost/data/rainfall.tiff" ) );
     params.setLandcoverWcs( new URL( "http://localhost/data/landcover.tiff" ) );
-    params.setErosionWcs( new URL( "http://localhost/data/erosion_smaller.tiff" ) );
+    params.setErosionWcs( new URL( "http://localhost/data/erosion.tiff" ) );
     
     return "gefcdemo";
   }
