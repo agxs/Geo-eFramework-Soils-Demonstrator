@@ -25,7 +25,7 @@
         <wps:ComplexData schema="http://dlib-bauer.ucs.ed.ac.uk/RasterTable.xsd">
           <RasterTable name="nz_woody_lookup">
             <Table id="0" key="Undefined" value="0"/>
-            <Table id="1" key="Water" value="0"/>
+            <Table id="1" key="Water" value="1"/>
             <Table id="2" key="Bare Ground" value="10"/>
             <Table id="3" key="Woody" value="1"/>
             <Table id="4" key="Herbaceous" value="10"/>
