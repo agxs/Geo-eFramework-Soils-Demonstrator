@@ -41,19 +41,19 @@ LAYER
   OFFSITE 0 0 0
   CLASS
     NAME "green"
-    EXPRESSION ([pixel] < 128)
+    EXPRESSION ([pixel] > 1 AND [pixel] < 100000000)
     STYLE
       COLORRANGE 0 255 0 0 64 0
-      DATARANGE 0 127
+      DATARANGE 0 100000000
       RANGEITEM "[pixel]"
     END
   END
   CLASS
     NAME "red"
-    EXPRESSION ([pixel] >= 128)
+    EXPRESSION ([pixel] >= 100000000)
     STYLE
       COLORRANGE 64 0 0 255 0 0
-      DATARANGE 128 255
+      DATARANGE 100000000 1000000000
       RANGEITEM "[pixel]"
     END
   END
