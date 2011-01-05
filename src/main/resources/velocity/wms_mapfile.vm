@@ -32,7 +32,7 @@ LAYER
   METADATA
     "wms_title" "Gefc Result"
     "wms_srs"   "EPSG:27700 EPSG:4326"
-    "wms_extent" "0.0 0.0 700000.0 130000.0"
+    "wms_extent" "0.0 0.0 700000.0 1300000.0"
   END
 
   DATA "${dataFolder}${user}/result.tiff"
