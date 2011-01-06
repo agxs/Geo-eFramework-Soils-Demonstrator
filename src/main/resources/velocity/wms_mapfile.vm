@@ -28,6 +28,10 @@ MAP
 
 LAYER
   NAME "result"
+  TOLERANCE 1
+  TOLERANCEUNITS pixels
+  PROCESSING "BANDS=1"
+  PROCESSING "SCALE=1,1000000"
 
   METADATA
     "wms_title" "Gefc Result"
@@ -41,19 +45,19 @@ LAYER
   OFFSITE 0 0 0
   CLASS
     NAME "green"
-    EXPRESSION ([pixel] > 10 AND [pixel] < 100000000)
+    EXPRESSION ([pixel] > 0 AND [pixel] < 100)
     STYLE
       COLORRANGE 0 255 0 0 64 0
-      DATARANGE 10 100000000
+      DATARANGE 1 100
       RANGEITEM "[pixel]"
     END
   END
   CLASS
     NAME "red"
-    EXPRESSION ([pixel] >= 100000000)
+    EXPRESSION ([pixel] >= 100)
     STYLE
       COLORRANGE 64 0 0 255 0 0
-      DATARANGE 100000000 1000000000
+      DATARANGE 100 1000
       RANGEITEM "[pixel]"
     END
   END
