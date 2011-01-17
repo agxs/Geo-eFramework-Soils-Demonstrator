@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="<c:url value="/resources/dijit/themes/tundra/tundra.css" />" type="text/css" />
     <link rel="stylesheet" href="./css/gefcdemo.css" type="text/css" />
     <script src="./OpenLayers.js" type="text/javascript"></script>
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;" type="text/javascript"></script>
     <script src="<c:url value="/resources/dojo/dojo.js" />" type="text/javascript"></script>
     <script src="<c:url value="/resources/spring/Spring.js" />" type="text/javascript"></script>
     <script src="<c:url value="/resources/spring/Spring-Dojo.js" />" type="text/javascript"></script>
