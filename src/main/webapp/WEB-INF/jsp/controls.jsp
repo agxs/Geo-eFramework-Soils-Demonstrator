@@ -2,11 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <form:form id="soilErosionForm" commandName="soilErosionWps" action="processmodel" >
   <div id="variables">
-    <table>
-      <tr>
-        <td>Rainfall Exponent:</td>
-        <td>
-          <form:input path="rainfallExponent" />
+    <fieldset>
+      <legend>Edit Variables:</legend>
+      <ul>
+        <li>
+          <label>Rainfall Exponent:</label>
+          <form:input path="rainfallExponent" cssClass="inputs" />
           <script type="text/javascript">
             Spring.addDecoration( new Spring.ElementDecoration({
               elementId : "rainfallExponent",
@@ -18,11 +19,9 @@
               }
             }));
           </script>
-        </td>
-      </tr>
-      <tr>
-        <td>Grow Factor:</td>
-        <td>
+        </li>
+        <li>
+          <label>Grow Factor:</label>
           <form:input path="growFactor" />
           <script type="text/javascript">
             Spring.addDecoration( new Spring.ElementDecoration({
@@ -35,11 +34,9 @@
               }
             }));
           </script>
-        </td>
-      </tr>
-      <tr>
-        <td>Stream Connectivity</td>
-        <td>
+        </li>
+        <li>
+          <label>Stream Connectivity</label>
           <form:input path="streamConnectivity" />
           <script type="text/javascript">
             Spring.addDecoration( new Spring.ElementDecoration({
@@ -52,75 +49,75 @@
               }
             }));
           </script>
-        </td>
-      </tr>
-    </table>
+        </li>
+      </ul>
+    </fieldset>
   </div>
   <div id="coverages">
-    <table>
-      <tr>
-        <td>Rainfall WCS:</td>
-        <td>
+    <fieldset>
+      <legend>Data Coverages:</legend>
+      <ul>
+        <li>
+          <label>Rainfall WCS:</label>
           <form:input path="rainfallWcs" />
           <script type="text/javascript">
             Spring.addDecoration( new Spring.ElementDecoration({
               elementId : "rainfallWcs",
-              widgetType : "dijit.form.ValidationTextBox",
+              widgetType : "dijit.form.SimpleTextarea",
               widgetAttrs : {
                 required : true
               }
             }));
           </script>
-        </td>
-      </tr>
-      <tr>
-        <td>Landcover WCS:</td>
-        <td>
+        </li>
+        <li>
+          <label>Landcover WCS:</label>
           <form:input path="landcoverWcs" />
           <script type="text/javascript">
             Spring.addDecoration( new Spring.ElementDecoration({
               elementId : "landcoverWcs",
-              widgetType : "dijit.form.ValidationTextBox",
+              widgetType : "dijit.form.SimpleTextarea",
               widgetAttrs : {
                 required : true
               }
             }));
           </script>
-        </td>
-      </tr>
-      <tr>
-        <td>Erosion Terrain WCS:</td>
-        <td>
+        </li>
+        <li>
+          <label>Erosion Terrain WCS:</label>
           <form:input path="erosionWcs" />
           <script type="text/javascript">
             Spring.addDecoration( new Spring.ElementDecoration({
               elementId : "erosionWcs",
-              widgetType : "dijit.form.ValidationTextBox",
+              widgetType : "dijit.form.SimpleTextarea",
               widgetAttrs : {
                 required : true
               }
             }));
           </script>
-        </td>
-      </tr>
-    </table>
+        </li>
+      </ul>
+    </fieldset>
   </div>
   <div id="process">
-    <input id="submitProcess" type="submit" value="Submit Process" />
-    <script type="text/javascript">
-      Spring.addDecoration( new Spring.ValidateAllDecoration({
-        elementId : "submitProcess",
-        event : "onclick"
-      }));
-      Spring.addDecoration( new Spring.AjaxEventDecoration({
-        elementId : "submitProcess",
-        event : "onclick",
-        formId : "soilErosionForm",
-        params : { fragments : "controls" }
-      }));
-    </script>
-    <c:if test="${!empty wpsResponse.outputUrl}">
-      <a href="<c:out value="${wpsResponse.outputUrl}" />">Download Output</a>
-    </c:if>
+    <fieldset>
+      <legend>Process:</legend>
+      <input id="submitProcess" type="submit" value="Submit Process" />
+      <script type="text/javascript">
+        Spring.addDecoration( new Spring.ValidateAllDecoration({
+          elementId : "submitProcess",
+          event : "onclick"
+        }));
+        Spring.addDecoration( new Spring.AjaxEventDecoration({
+          elementId : "submitProcess",
+          event : "onclick",
+          formId : "soilErosionForm",
+          params : { fragments : "controls" }
+        }));
+      </script>
+      <c:if test="${!empty wpsResponse.outputUrl}">
+        <a href="<c:out value="${wpsResponse.outputUrl}" />">Download Output</a>
+      </c:if>
+    </fieldset>
   </div>
 </form:form>
