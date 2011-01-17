@@ -42,22 +42,22 @@ LAYER
   DATA "${dataFolder}${user}/result.tiff"
   STATUS OFF
   TYPE RASTER
-  OFFSITE 0 0 0
+  #OFFSITE 0 0 0
   CLASS
-    NAME "green"
-    EXPRESSION ([pixel] > 0 AND [pixel] < 100)
+    NAME "Safe Erosion"
+    EXPRESSION ([pixel] > 0 AND [pixel] < 200)
     STYLE
-      COLORRANGE 0 255 0 0 64 0
-      DATARANGE 1 100
+      COLORRANGE 255 255 115 181 0 0
+      DATARANGE 1 200
       RANGEITEM "[pixel]"
     END
   END
   CLASS
-    NAME "red"
-    EXPRESSION ([pixel] >= 100)
+    NAME "Danger Erosion"
+    EXPRESSION ([pixel] >= 200)
     STYLE
-      COLORRANGE 64 0 0 255 0 0
-      DATARANGE 100 1000
+      COLORRANGE 181 0 0 255 0 0
+      DATARANGE 200 1000
       RANGEITEM "[pixel]"
     END
   END
