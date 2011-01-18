@@ -43,8 +43,7 @@
     }
     result = new OpenLayers.Layer.WMS(
         "gefc_result",
-        "http://localhost/cgi-bin/mapserv?map=/var/www/data/aseales/result.map&amp;cacheControl="
-            + (cacheControl++) + "&amp;",
+        '<c:out value="${configParameters.resultUrl}" />' + 'cacheControl=' + (cacheControl++) + '&amp;',
         {
           layers : "gefc_result",
           image : "image/png",

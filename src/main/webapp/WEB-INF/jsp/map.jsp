@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <script type="text/javascript" defer="defer">
   var bounds = new OpenLayers.Bounds( 0, 0, 700000, 1300000 );
   var map = new OpenLayers.Map({
@@ -15,9 +17,8 @@
 //    );
   var baselayer = new OpenLayers.Layer.WMS(
       "OpenLayers WMS",
-      "http://canisp.edina.ac.uk:7992/cgi-mapserv/mapserv?",
+      '<c:out value="${configParameters.baselayerUrl}" />',
       { 
-        map: 'mapfiles/fhf_test/vml_OS_background.map',
         format: 'image/png',
         layers : 'vml_OS_background',
         visibility : false
@@ -25,7 +26,7 @@
     );
   var rainfall = new OpenLayers.Layer.WMS(
       "rainfall",
-      "http://localhost/cgi-bin/mapserv?map=/var/www/data/rainfall.map&amp;",
+      '<c:out value="${configParameters.rainfallUrl}" />',
       {
         layers : "rainfall",
         image : "image/png",
@@ -34,7 +35,7 @@
     );
   var landcover = new OpenLayers.Layer.WMS(
       "landcover",
-      "http://localhost/cgi-bin/mapserv?map=/var/www/data/landcover.map&amp;",
+      '<c:out value="${configParameters.landCoverUrl}" />',
       {
         layers : "landcover",
         image : "image/png",
@@ -43,7 +44,7 @@
     );
   var erosion = new OpenLayers.Layer.WMS(
       "erosion",
-      "http://localhost/cgi-bin/mapserv?map=/var/www/data/erosion.map&amp;",
+      '<c:out value="${configParameters.erosionUrl}" />',
       {
         layers : "erosion",
         image : "image/png",

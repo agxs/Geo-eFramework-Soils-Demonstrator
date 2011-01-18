@@ -3,25 +3,45 @@ package edina.eframework.gefcdemo.controllers;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.commons.configuration.Configuration;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import edina.eframework.gefcdemo.domain.ConfigParameters;
 import edina.eframework.gefcdemo.domain.SoilErosionWps;
 
 @Controller
 @RequestMapping(value="/gefcdemo")
 public class MapController {
   
+  private Configuration config;
+  
+  public void setConfig( Configuration config ) {
+    this.config = config;
+  }
+  
   @RequestMapping(method=RequestMethod.GET)
-  public String handleMap( SoilErosionWps params ) throws MalformedURLException {
+  public String handleMap( SoilErosionWps params,
+                           @ModelAttribute ConfigParameters configParameters )
+    throws MalformedURLException {
+    
     // Sets default values - move to properties file
-    params.setRainfallExponent( 2.0 );
-    params.setGrowFactor( 0.0 );
-    params.setStreamConnectivity( 1.0 );
-    params.setRainfallWcs( new URL( "http://localhost/data/rainfall.tiff" ) );
-    params.setLandcoverWcs( new URL( "http://localhost/data/landcover.tiff" ) );
-    params.setErosionWcs( new URL( "http://localhost/data/erosion.tiff" ) );
+    params.setRainfallExponent( config.getDouble( "rainfallExponent.default" ) );
+    params.setGrowFactor( config.getDouble( "growFactor.default" ) );
+    params.setStreamConnectivity( config.getDouble( "streamConnectivity.default" ) );
+    params.setRainfallWcs( new URL( config.getString( "rainfallWcs.default" ) ) );
+    params.setLandcoverWcs( new URL( config.getString( "landcoverWcs.default" ) ) );
+    params.setErosionWcs( new URL( config.getString( "erosionWcs.default" ) ) );
+    
+    configParameters.setBaselayerUrl( config.getString( "baselayer.url" ) );
+    configParameters.setRainfallUrl( config.getString( "rainfall.url" ) );
+    configParameters.setLandCoverUrl( config.getString( "landcover.url" ) );
+    configParameters.setErosionUrl( config.getString( "erosion.url" ) );
+    configParameters.setResultUrl( config.getString( "result.url" ) + "map=" +
+                               config.getString( "wps.output.location" ) +
+                               "aseales/result.map&" );
     
     return "gefcdemo";
   }
