@@ -30,6 +30,14 @@
     var element = document.getElementById( elementName );
     if ( element.checked ) {
       map.addLayer( layer );
+      // Re-orders the layers to make sure they are in the correct order
+      for ( i = 0; i < map.getNumLayers(); i++ ) {
+        var mapLayer = map.layers[i];
+        if ( mapLayer['z'] > layer['z'] ) {
+          map.setLayerIndex( layer, map.getLayerIndex( mapLayer ) );
+          break;
+        }
+      }
     } else {
       map.removeLayer( layer );
     }
@@ -47,11 +55,14 @@
         {
           layers : "gefc_result",
           image : "image/png",
-          transparent : true
+          transparent : true,
         }
       );
+    result['z'] = 4;
+    // Make sure to insert this new layer at the top of the stack
     if ( resultCheckBox.checked ) {
       map.addLayer( result );
+      map.setLayerIndex( result, 4 );
     }
   }
 </script>

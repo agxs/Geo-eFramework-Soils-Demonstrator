@@ -5,7 +5,7 @@
   var map = new OpenLayers.Map({
     controls: [],
     div : "map",
-    allOverlays : false,
+    allOverlays : true,
     projection: new OpenLayers.Projection( "EPSG:27700" ),
     units: "m",
     maxExtent: bounds,
@@ -21,36 +21,41 @@
       {
         format: 'image/png',
         layers : 'vml_OS_background',
-        visibility : false
+        visibility : false,
       }
     );
+  baselayer['z'] = 0;
   var rainfall = new OpenLayers.Layer.WMS(
       "rainfall",
       '<c:out value="${configParameters.rainfallUrl}" />',
       {
         layers : "rainfall",
         image : "image/png",
-        transparent : true
+        transparent : true,
       }
     );
+  rainfall['z'] = 1;
   var landcover = new OpenLayers.Layer.WMS(
       "landcover",
       '<c:out value="${configParameters.landCoverUrl}" />',
       {
         layers : "landcover",
         image : "image/png",
-        transparent : true
+        transparent : true,
       }
     );
+  landcover['z'] = 2;
   var erosion = new OpenLayers.Layer.WMS(
       "erosion",
       '<c:out value="${configParameters.erosionUrl}" />',
       {
         layers : "erosion",
         image : "image/png",
-        transparent : true
+        transparent : true,
+        myprop : 3
       }
     );
+  erosion['z'] = 3;
   map.addLayer(baselayer);
   
   map.addControl( new OpenLayers.Control.Navigation() );
