@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import edina.eframework.gefcdemo.controllers.MapController;
+import edina.eframework.gefcdemo.domain.ConfigParameters;
 import edina.eframework.gefcdemo.domain.SoilErosionWps;
 import edina.eframework.gefcdemo.helpers.MockServletContextWebContextLoader;
 
@@ -25,7 +26,7 @@ public class MapControllerTest {
   
   @Test
   public void testHandleMap() throws MalformedURLException {
-    String viewName = mapController.handleMap( new SoilErosionWps() );
+    String viewName = mapController.handleMap( new SoilErosionWps(), new ConfigParameters() );
     assertEquals( "Unexpected view name returned from MapController.",
                   "gefcdemo", viewName );
   }
