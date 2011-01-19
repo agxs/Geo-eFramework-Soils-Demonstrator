@@ -18,7 +18,7 @@
   var baselayer = new OpenLayers.Layer.WMS(
       "OpenLayers WMS",
       '<c:out value="${configParameters.baselayerUrl}" />',
-      { 
+      {
         format: 'image/png',
         layers : 'vml_OS_background',
         visibility : false
