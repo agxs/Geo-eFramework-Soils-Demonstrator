@@ -21,7 +21,7 @@
       {
         format: 'image/png',
         layers : 'vml_OS_background',
-        visibility : false,
+        visibility : false
       }
     );
   baselayer['z'] = 0;
@@ -31,7 +31,7 @@
       {
         layers : "rainfall",
         image : "image/png",
-        transparent : true,
+        transparent : true
       }
     );
   rainfall['z'] = 1;
@@ -41,7 +41,7 @@
       {
         layers : "landcover",
         image : "image/png",
-        transparent : true,
+        transparent : true
       }
     );
   landcover['z'] = 2;
