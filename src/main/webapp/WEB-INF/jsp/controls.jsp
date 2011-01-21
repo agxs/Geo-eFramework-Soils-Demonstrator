@@ -58,7 +58,7 @@
       <legend>Data Coverages:</legend>
       <ul>
         <li>
-          <label>Rainfall WCS:</label>
+          <label>Rainfall Coverage:</label>
           <form:input path="rainfallWcs" />
           <script type="text/javascript">
             Spring.addDecoration( new Spring.ElementDecoration({
@@ -71,7 +71,7 @@
           </script>
         </li>
         <li>
-          <label>Landcover WCS:</label>
+          <label>Landcover Coverage:</label>
           <form:input path="landcoverWcs" />
           <script type="text/javascript">
             Spring.addDecoration( new Spring.ElementDecoration({
@@ -84,7 +84,7 @@
           </script>
         </li>
         <li>
-          <label>Erosion Terrain WCS:</label>
+          <label>Erosion Terrain Coverage:</label>
           <form:input path="erosionWcs" />
           <script type="text/javascript">
             Spring.addDecoration( new Spring.ElementDecoration({

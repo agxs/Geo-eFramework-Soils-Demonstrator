@@ -28,6 +28,7 @@
             <Table id="1" key="Woody" value="1"/>
             <Table id="10" key="Bare Ground" value="10" />
             <Table id="128" key="Undefined" value="0" />
+            <Table id="-9999" key="Undefined" value="0" />
           </RasterTable>
         </wps:ComplexData>
       </wps:Data>
