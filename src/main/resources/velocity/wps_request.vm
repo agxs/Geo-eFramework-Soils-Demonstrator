@@ -39,6 +39,18 @@
         <wps:LiteralData dataType="xs:double">${params.rainfallExponent}</wps:LiteralData>
       </wps:Data>
     </wps:Input>
+    <wps:Input>
+      <ows:Identifier xmlns:ns1="http://www.opengis.net/ows/1.1">growFactor</ows:Identifier>
+      <wps:Data>
+        <wps:LiteralData dataType="xs:double">${params.growFactor}</wps:LiteralData>
+      </wps:Data>
+    </wps:Input>
+    <wps:Input>
+      <ows:Identifier xmlns:ns1="http://www.opengis.net/ows/1.1">streamConnectivity</ows:Identifier>
+      <wps:Data>
+        <wps:LiteralData dataType="xs:double">${params.streamConnectivity}</wps:LiteralData>
+      </wps:Data>
+    </wps:Input>
   </wps:DataInputs>
   <wps:ResponseForm>
     <wps:ResponseDocument>
