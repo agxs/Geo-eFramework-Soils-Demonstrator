@@ -29,7 +29,7 @@
               widgetType : "dijit.form.ValidationTextBox",
               widgetAttrs : {
                 invalidMessage : "Invalid grow factor.",
-                regExp : "\\d+(\\.\\d*)?",
+                regExp : "\\-?\\d+(\\.\\d*)?",
                 required : true
               }
             }));
