@@ -43,6 +43,10 @@
     }
   }
   function enableResult() {
+    <c:if test="${param['simple']}">
+      document.getElementById('coverages').style.display = "none";
+    </c:if>
+  
     var resultCheckBox = document.getElementById( "resultCheckBox" );
     resultCheckBox.removeAttribute( "disabled" );
     
@@ -55,7 +59,7 @@
         {
           layers : "gefc_result",
           image : "image/png",
-          transparent : true,
+          transparent : true
         }
       );
     result['z'] = 4;

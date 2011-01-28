@@ -119,5 +119,10 @@
         <a href="<c:out value="${wpsResponse.outputUrl}" />">Download Output</a>
       </c:if>
     </fieldset>
+    <c:if test="${param['simple']}">
+      <script type="text/javascript">
+        document.getElementById('coverages').style.display = "none";
+      </script>
+    </c:if>
   </div>
 </form:form>
