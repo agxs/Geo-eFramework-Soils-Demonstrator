@@ -15,6 +15,10 @@
       <label for="landcoverCheckBox">Landcover</label>
     </li>
     <li>
+      <input id="landcoverPreviewCheckBox" type="checkbox" disabled="disabled" onclick="toggleLayer(landcoverPreview, 'landcoverPreviewCheckBox')" />
+      <label for="landcoverPreviewCheckBox">Landcover Preview</label>
+    </li>
+    <li>
       <input id="erosionCheckBox" type="checkbox" onclick="toggleLayer(erosion, 'erosionCheckBox')" />
       <label for="erosionCheckBox">Erosion</label>
     </li>
@@ -62,11 +66,38 @@
           transparent : true
         }
       );
-    result['z'] = 4;
+    result['z'] = 5;
     // Make sure to insert this new layer at the top of the stack
     if ( resultCheckBox.checked ) {
       map.addLayer( result );
-      map.setLayerIndex( result, 4 );
+      map.setLayerIndex( result, 5 );
+    }
+  }
+  function enableLandcover() {
+    <c:if test="${param['simple']}">
+      document.getElementById('coverages').style.display = "none";
+    </c:if>
+
+    var landcoverPreviewCheckBox = document.getElementById( "landcoverPreviewCheckBox" );
+    landcoverPreviewCheckBox.removeAttribute( "disabled" );
+    
+    if ( landcoverPreview != null ) {
+      landcoverPreview.destroy();
+    }
+    landcoverPreview = new OpenLayers.Layer.WMS(
+        "landcoverPreview",
+        '<c:out value="${configParameters.landCoverPreviewUrl}" />' + 'cacheControl=' + (cacheControl++) + '&amp;',
+        {
+          layers : "landcoverPreview",
+          image : "image/png",
+          transparent : true
+        }
+      );
+    landcoverPreview['z'] = 3;
+    // Make sure to insert this new layer at the top of the stack
+    if ( landcoverPreviewCheckBox.checked ) {
+      map.addLayer( landcoverPreview );
+      map.setLayerIndex( landcoverPreview, 3 );
     }
   }
 </script>

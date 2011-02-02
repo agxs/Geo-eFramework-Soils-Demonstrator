@@ -55,7 +55,7 @@
         myprop : 3
       }
     );
-  erosion['z'] = 3;
+  erosion['z'] = 4;
   map.addLayer(baselayer);
   
   map.addControl( new OpenLayers.Control.Navigation() );

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:Execute service="WPS" version="1.0.0"
+    xmlns:wps="http://www.opengis.net/wps/1.0.0"
+    xmlns:ows="http://www.opengis.net/ows/1.1"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://geoserver.itc.nl:8080/wps/schemas/wps/1.0.0/wpsExecute_request.xsd">
+  <ows:Identifier>tikouka.nl.wps.algorithm.GrowFactorFacadeAlgorithm</ows:Identifier>
+  <wps:DataInputs>
+    <wps:Input>
+      <ows:Identifier>landuse</ows:Identifier>
+      <wps:Reference mimeType="image/tiff" xlink:href="${params.landcoverWcs}" xmlns:xlink="http://www.w3.org/1999/xlink" />
+    </wps:Input>
+    <wps:Input>
+      <ows:Identifier xmlns:ns1="http://www.opengis.net/ows/1.1">growFactor</ows:Identifier>
+      <wps:Data>
+        <wps:LiteralData dataType="xs:double">${params.growFactor}</wps:LiteralData>
+      </wps:Data>
+    </wps:Input>
+  </wps:DataInputs>
+  <wps:ResponseForm>
+    <wps:ResponseDocument>
+      <wps:Output asReference="true">
+        <ows:Identifier xmlns="http://www.opengis.net/ows/1.1">result</ows:Identifier>
+        <wps:Reference mimeType="image/tiff"/>
+      </wps:Output>
+    </wps:ResponseDocument>
+  </wps:ResponseForm>
+</wps:Execute>

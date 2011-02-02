@@ -8,6 +8,7 @@
   <bean id="mapserverGenerator" class="edina.eframework.gefcdemo.portrayal.MapserverGenerator">
     <property name="velocityEngine" ref="velocityEngine" />
     <property name="templateLocation" value="${wms.mapfile}" />
+    <property name="growTemplateLocation" value="${wms.grow.mapfile}" />
     <property name="wpsOutputDir" value="${wps.output.location}" />
   </bean>
 

@@ -30,6 +30,12 @@ public class MapserverGenerator implements WmsGenerator {
     this.templateLocation = templateLocation;
   }
   
+  private String growTemplateLocation;
+  
+  public void setGrowTemplateLocation( String growTemplateLocation ) {
+    this.growTemplateLocation = growTemplateLocation;
+  }
+  
   private String wpsOutputDir;
   
   public void setWpsOutputDir( String wpsOutputDir ) {
@@ -37,9 +43,19 @@ public class MapserverGenerator implements WmsGenerator {
   }
 
   @Override
-  public void generateWmsConfiguration( String user ) throws IOException { // TODO change this to Spring Security Principal
+  public void generateResultConfiguration( String user ) throws IOException { // TODO change this to Spring Security Principal
+    generateConfiguration( user, "result.map", templateLocation );
+  }
+  
+  @Override
+  public void generateLandcoverConfiguration( String user ) throws IOException {
+    generateConfiguration( user, "landcoverPreview.map", growTemplateLocation );
+  }
+  
+  private void generateConfiguration( String user, String mapName, String template )
+    throws IOException {
     
-    File wmsTemplateFile = new File( wpsOutputDir + user + "/result.map" );
+    File wmsTemplateFile = new File( wpsOutputDir + user + "/" + mapName );
     wmsTemplateFile.getParentFile().mkdirs();
     
     Writer wpsRequest = null;
@@ -50,7 +66,7 @@ public class MapserverGenerator implements WmsGenerator {
       velocityMap.put( "dataFolder", wpsOutputDir );
       velocityMap.put( "user", user );
       
-      VelocityEngineUtils.mergeTemplate( velocityEngine, templateLocation, velocityMap, wpsRequest );
+      VelocityEngineUtils.mergeTemplate( velocityEngine, template, velocityMap, wpsRequest );
     }
     finally {
       try { wpsRequest.close(); } catch ( Exception e ) {}

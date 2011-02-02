@@ -21,19 +21,38 @@
           </script>
         </li>
         <li>
-          <label>Grow Factor:</label>
-          <form:input path="growFactor" />
-          <script type="text/javascript">
-            Spring.addDecoration( new Spring.ElementDecoration({
-              elementId : "growFactor",
-              widgetType : "dijit.form.ValidationTextBox",
-              widgetAttrs : {
-                invalidMessage : "Invalid grow factor.",
-                regExp : "\\-?\\d+(\\.\\d*)?",
-                required : true
-              }
-            }));
-          </script>
+          <div>
+            <div>
+              <label>Grow Factor:</label>
+              <form:input path="growFactor" />
+              <script type="text/javascript">
+                Spring.addDecoration( new Spring.ElementDecoration({
+                  elementId : "growFactor",
+                  widgetType : "dijit.form.ValidationTextBox",
+                  widgetAttrs : {
+                    invalidMessage : "Invalid grow factor.",
+                    regExp : "\\-?\\d+(\\.\\d*)?",
+                    required : true
+                  }
+                }));
+              </script>
+            </div>
+            <div>
+              <input id="previewGrow" type="submit" value="Preview Grow" onclick="lastButton = 'previewGrow'"/>
+                <script type="text/javascript">
+                  Spring.addDecoration( new Spring.ValidateAllDecoration({
+                    elementId : "previewGrow",
+                    event : "onclick"
+                  }));
+                  Spring.addDecoration( new Spring.AjaxEventDecoration({
+                    elementId : "previewGrow",
+                    event : "onclick",
+                    formId : "soilErosionForm",
+                    params : { fragments : "controls" }
+                  }));
+                </script>
+              </div>
+            </div>
         </li>
         <li>
           <label>Stream Connectivity</label>
@@ -102,7 +121,7 @@
   <div id="process">
     <fieldset>
       <legend>Process:</legend>
-      <input id="submitProcess" type="submit" value="Submit Process" />
+      <input id="submitProcess" type="submit" value="Submit Process" onclick="lastButton = 'submitProcess'"/>
       <script type="text/javascript">
         Spring.addDecoration( new Spring.ValidateAllDecoration({
           elementId : "submitProcess",

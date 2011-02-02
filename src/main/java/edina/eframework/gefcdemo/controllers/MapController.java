@@ -27,7 +27,6 @@ public class MapController {
                            @ModelAttribute ConfigParameters configParameters )
     throws MalformedURLException {
     
-    // Sets default values - move to properties file
     params.setRainfallExponent( config.getDouble( "rainfallExponent.default" ) );
     params.setGrowFactor( config.getDouble( "growFactor.default" ) );
     params.setStreamConnectivity( config.getDouble( "streamConnectivity.default" ) );
@@ -39,9 +38,12 @@ public class MapController {
     configParameters.setRainfallUrl( config.getString( "rainfall.url" ) );
     configParameters.setLandCoverUrl( config.getString( "landcover.url" ) );
     configParameters.setErosionUrl( config.getString( "erosion.url" ) );
+    configParameters.setLandCoverPreviewUrl( config.getString( "landcoverPreview.url" ) + "map=" +
+                                             config.getString( "wps.output.location" ) +
+                                             "aseales/landcoverPreview.map&" );
     configParameters.setResultUrl( config.getString( "result.url" ) + "map=" +
-                               config.getString( "wps.output.location" ) +
-                               "aseales/result.map&" );
+                                   config.getString( "wps.output.location" ) +
+                                   "aseales/result.map&" );
     
     return "gefcdemo";
   }

@@ -49,6 +49,12 @@ public class ProcessErosionController {
     this.templateLocation = templateLocation;
   }
   
+  private String growTemplateLocation;
+  
+  public void setGrowTemplateLocation( String growTemplateLocation ) {
+    this.growTemplateLocation = growTemplateLocation;
+  }
+  
   private URL wpsServer;
   
   public void setWpsServer( URL wpsServer ) {
@@ -72,9 +78,30 @@ public class ProcessErosionController {
     return "wps";
   }
   
-  @RequestMapping(method = RequestMethod.POST)
+  @RequestMapping(method = RequestMethod.POST,params="ajaxSource=previewGrow")
+  public String handlePreviewGrow( SoilErosionWps params,
+                                   @ModelAttribute WpsResponse wpsResponse )
+    throws IOException, JAXBException {
+    
+    generateWpsRequest( params, wpsResponse, growTemplateLocation, wpsOutputDir + "/aseales/landcoverPreview.tiff" );
+    mapserverGenerator.generateLandcoverConfiguration( "aseales" );
+    
+    return "gefcdemo";
+  }
+  
+  @RequestMapping(method = RequestMethod.POST,params="ajaxSource=submitProcess")
   public String handleProcessResult( SoilErosionWps params,
                                      @ModelAttribute WpsResponse wpsResponse )
+    throws IOException, JAXBException {
+    
+    generateWpsRequest( params, wpsResponse, templateLocation, wpsOutputDir + "/aseales/result.tiff" );
+    mapserverGenerator.generateResultConfiguration( "aseales" );
+    
+    return "gefcdemo";
+  }
+  
+  private void generateWpsRequest( SoilErosionWps params, WpsResponse wpsResponse,
+                                   String template, String wpsOutputFile )
     throws IOException, JAXBException {
     
     Writer wpsRequest = new StringWriter();
@@ -82,7 +109,7 @@ public class ProcessErosionController {
     
     velocityMap.put( "params", params );
     
-    VelocityEngineUtils.mergeTemplate( velocityEngine, templateLocation, velocityMap, wpsRequest );
+    VelocityEngineUtils.mergeTemplate( velocityEngine, template, velocityMap, wpsRequest );
     wpsRequest.close();
     
     System.out.println( wpsRequest.toString() );
@@ -120,7 +147,7 @@ public class ProcessErosionController {
     wpsResponse.setStatus( 200 );
 
     // Save the WPS output data to a file mapserver can use
-    File resultOutputFile = new File( wpsOutputDir + "/aseales/result.tiff" );
+    File resultOutputFile = new File( wpsOutputFile );
     resultOutputFile.getParentFile().mkdirs();
     FileOutputStream resultFileStream = new FileOutputStream( resultOutputFile );
     InputStream resultInputFile = null;
@@ -140,8 +167,6 @@ public class ProcessErosionController {
     
     System.out.println( "Result saved to " + resultOutputFile );
     
-    mapserverGenerator.generateWmsConfiguration( "aseales" );
-    
     // generate wps request
     // store data
     // run WmsConfigurationGenerator
@@ -150,7 +175,5 @@ public class ProcessErosionController {
     // index data
     }
     // return data
-    
-    return "gefcdemo";
   }
 }

@@ -13,6 +13,7 @@ public class ConfigParameters {
   private String baselayerUrl;
   private String rainfallUrl;
   private String landCoverUrl;
+  private String landCoverPreviewUrl;
   private String erosionUrl;
   private String resultUrl;
   
@@ -38,6 +39,14 @@ public class ConfigParameters {
   
   public void setLandCoverUrl( String landCoverUrl ) {
     this.landCoverUrl = landCoverUrl;
+  }
+  
+  public String getLandCoverPreviewUrl() {
+    return landCoverPreviewUrl;
+  }
+  
+  public void setLandCoverPreviewUrl( String landCoverPreviewUrl ) {
+    this.landCoverPreviewUrl = landCoverPreviewUrl;
   }
   
   public String getErosionUrl() {

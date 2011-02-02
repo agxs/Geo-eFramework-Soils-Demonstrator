@@ -1,0 +1,86 @@
+MAP
+  NAME "UK Landcover Preview"
+
+  IMAGECOLOR 255 255 255
+  STATUS ON
+  EXTENT 0.0 0.0 700000.0 1300000.0
+
+  SIZE 300 300
+  SHAPEPATH "indexes"
+
+  UNITS METERS
+  PROJECTION
+    "init=epsg:27700"
+  END
+
+  WEB
+    METADATA
+      "wms_title" "UK Landcover Preview"
+      "wms_contactperson" "EDINA Helpdesk"
+      "wms_contactorganization" "EDINA"
+      "wms_contactvoicetelephone" "0131 650 3302"
+      "wms_contactfacsimiletelephone" "0131 650 3308"
+      "wms_contactelectronicmailaddress" "edina@ed.ac.uk"
+      "wms_onlineresource" "http://localhost/cgi-bin/mapserv?map=${dataFolder}${user}/landcoverPreview.map&"
+      "wms_srs" "EPSG:27700 EPSG:4326"
+    END
+  END
+
+LAYER
+  NAME "landcoverPreview"
+
+  METADATA
+    "wms_title" "UK Landcover Preview"
+    "wms_srs"   "EPSG:27700 EPSG:4326"
+    "wms_extent" "0.0 0.0 700000.0 130000.0"
+  END
+
+  DATA "${dataFolder}${user}/landcoverPreview.tiff"
+  STATUS OFF
+  TYPE RASTER
+  OFFSITE 128 128 128
+  CLASS
+    NAME "Blue"
+    EXPRESSION ([pixel] = 0)
+    STYLE
+      COLOR 0 132 168
+    END
+  END
+  CLASS
+    NAME "Wood"
+    EXPRESSION ([pixel] = 1)
+    STYLE
+      COLOR 114 137 68
+    END
+  END
+  CLASS
+    NAME "Land"
+    EXPRESSION ([pixel] = 10)
+    STYLE
+      COLOR 215 194 158
+    END
+  END
+
+  MINSCALEDENOM 100.0
+  MAXSCALEDENOM 1000000000.0
+  PROJECTION
+    "init=epsg:27700"
+  END
+END
+
+OUTPUTFORMAT
+  NAME png
+  DRIVER "GD/PNG"
+  MIMETYPE "image/png"
+  IMAGEMODE RGBA
+  EXTENSION "png"
+END
+
+OUTPUTFORMAT
+  NAME gif
+  DRIVER "GD/GIF"
+  MIMETYPE "image/gif"
+  IMAGEMODE PC256
+  EXTENSION "gif"
+END
+END

@@ -28,10 +28,26 @@ public class MapserverGeneratorTest {
   private Configuration config;
 
   @Test
-  public void testGenerateWmsConfiguration() throws IOException {
-    mapserverGenerator.generateWmsConfiguration( "test" );
+  public void testGenerateResultConfiguration() throws IOException {
+    mapserverGenerator.generateResultConfiguration( "test" );
     
     File mapFile = new File( config.getString( "wps.output.location" ) + "test/result.map" );
+    try {
+      if ( !mapFile.exists() ) {
+        fail( "Map file did not generate" );
+      }
+    }
+    finally {
+      mapFile.delete();
+      mapFile.getParentFile().delete();
+    }
+  }
+  
+  @Test
+  public void testGenerateLandcoverConfiguration() throws IOException {
+    mapserverGenerator.generateLandcoverConfiguration( "test" );
+    
+    File mapFile = new File( config.getString( "wps.output.location" ) + "test/landcoverPreview.map" );
     try {
       if ( !mapFile.exists() ) {
         fail( "Map file did not generate" );

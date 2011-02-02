@@ -14,10 +14,20 @@
     <script src="<c:url value="/resources/spring/Spring.js" />" type="text/javascript"></script>
     <script src="<c:url value="/resources/spring/Spring-Dojo.js" />" type="text/javascript"></script>
     <script type="text/javascript">
-      var result = null;
-      var cacheControl = 0;
+      var result = null;  // the result OpenLayers.layer object
+      var landcoverPreview = null; // the landcover preview OpenLayers.layer object
+      var cacheControl = 0; // dummy parameter to stop map caching
+      var lastButton = ''; // String - stores the last hit form button for handling responses
       function init() {
-        dojo.connect( Spring.RemotingHandler.prototype, 'handleResponse', this, 'enableResult' );
+        dojo.connect( Spring.RemotingHandler.prototype, 'handleResponse', this, 'gefcResponseHandler' );
+      }
+      function gefcResponseHandler() {
+        if ( lastButton == 'submitProcess' ) {
+          enableResult();
+        }
+        else if ( lastButton == 'previewGrow' ) {
+          enableLandcover();
+        }
       }
     </script>
   </head>
