@@ -41,6 +41,12 @@ public class MapserverGenerator implements WmsGenerator {
   public void setWpsOutputDir( String wpsOutputDir ) {
     this.wpsOutputDir = wpsOutputDir;
   }
+  
+  private String resultUrl;
+  
+  public void setResultUrl( String resultUrl ) {
+    this.resultUrl = resultUrl;
+  }
 
   @Override
   public void generateResultConfiguration( String user ) throws IOException { // TODO change this to Spring Security Principal
@@ -65,6 +71,7 @@ public class MapserverGenerator implements WmsGenerator {
       
       velocityMap.put( "dataFolder", wpsOutputDir );
       velocityMap.put( "user", user );
+      velocityMap.put( "resultUrl", resultUrl );
       
       VelocityEngineUtils.mergeTemplate( velocityEngine, template, velocityMap, wpsRequest );
     }

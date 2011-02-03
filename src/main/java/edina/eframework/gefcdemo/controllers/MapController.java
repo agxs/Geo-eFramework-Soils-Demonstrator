@@ -38,7 +38,7 @@ public class MapController {
     configParameters.setRainfallUrl( config.getString( "rainfall.url" ) );
     configParameters.setLandCoverUrl( config.getString( "landcover.url" ) );
     configParameters.setErosionUrl( config.getString( "erosion.url" ) );
-    configParameters.setLandCoverPreviewUrl( config.getString( "landcoverPreview.url" ) + "map=" +
+    configParameters.setLandCoverPreviewUrl( config.getString( "result.url" ) + "map=" +
                                              config.getString( "wps.output.location" ) +
                                              "aseales/landcoverPreview.map&" );
     configParameters.setResultUrl( config.getString( "result.url" ) + "map=" +

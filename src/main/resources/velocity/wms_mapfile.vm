@@ -21,7 +21,7 @@ MAP
       "wms_contactvoicetelephone" "0131 650 3302"
       "wms_contactfacsimiletelephone" "0131 650 3308"
       "wms_contactelectronicmailaddress" "edina@ed.ac.uk"
-      "wms_onlineresource" "http://localhost/cgi-bin/mapserv?map=${dataFolder}${user}/result.map&"
+      "wms_onlineresource" "${resultUrl}map=${dataFolder}${user}/result.map&"
       "wms_srs" "EPSG:27700 EPSG:4326"
     END
   END

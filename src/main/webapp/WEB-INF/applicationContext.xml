@@ -10,6 +10,7 @@
     <property name="templateLocation" value="${wms.mapfile}" />
     <property name="growTemplateLocation" value="${wms.grow.mapfile}" />
     <property name="wpsOutputDir" value="${wps.output.location}" />
+    <property name="resultUrl" value="${result.url}" />
   </bean>
 
   <!-- Velocity Configuration beans -->
