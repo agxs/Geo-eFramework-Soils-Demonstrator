@@ -4,9 +4,9 @@
   <div id="variables">
     <fieldset>
       <legend>Edit Variables:</legend>
-      <ul>
+      <ul id="variablesList">
         <li>
-          <label>Rainfall Exponent:</label>
+          <label for="rainfallExponent">Rainfall Exponent:</label>
           <form:input path="rainfallExponent" cssClass="inputs" />
           <script type="text/javascript">
             Spring.addDecoration( new Spring.ElementDecoration({
@@ -21,41 +21,7 @@
           </script>
         </li>
         <li>
-          <div>
-            <div>
-              <label>Grow Factor:</label>
-              <form:input path="growFactor" />
-              <script type="text/javascript">
-                Spring.addDecoration( new Spring.ElementDecoration({
-                  elementId : "growFactor",
-                  widgetType : "dijit.form.ValidationTextBox",
-                  widgetAttrs : {
-                    invalidMessage : "Invalid grow factor.",
-                    regExp : "\\-?\\d+(\\.\\d*)?",
-                    required : true
-                  }
-                }));
-              </script>
-            </div>
-            <div>
-              <input id="previewGrow" type="submit" value="Preview Grow" onclick="lastButton = 'previewGrow'"/>
-                <script type="text/javascript">
-                  Spring.addDecoration( new Spring.ValidateAllDecoration({
-                    elementId : "previewGrow",
-                    event : "onclick"
-                  }));
-                  Spring.addDecoration( new Spring.AjaxEventDecoration({
-                    elementId : "previewGrow",
-                    event : "onclick",
-                    formId : "soilErosionForm",
-                    params : { fragments : "controls" }
-                  }));
-                </script>
-              </div>
-            </div>
-        </li>
-        <li>
-          <label>Stream Connectivity</label>
+          <label for="streamConnectivity">Stream Connectivity:</label>
           <form:input path="streamConnectivity" />
           <script type="text/javascript">
             Spring.addDecoration( new Spring.ElementDecoration({
@@ -69,13 +35,43 @@
             }));
           </script>
         </li>
+        <li>
+          <label for="growFactor">Grow Factor:</label>
+          <form:input path="growFactor" />
+          <script type="text/javascript">
+            Spring.addDecoration( new Spring.ElementDecoration({
+              elementId : "growFactor",
+              widgetType : "dijit.form.ValidationTextBox",
+              widgetAttrs : {
+                invalidMessage : "Invalid grow factor.",
+                regExp : "\\-?\\d+(\\.\\d*)?",
+                required : true
+              }
+            }));
+          </script>
+        </li>
+        <li><div id="preview">
+          <input id="previewGrow" type="submit" value="Preview Grow" onclick="lastButton = 'previewGrow'"/>
+            <script type="text/javascript">
+              Spring.addDecoration( new Spring.ValidateAllDecoration({
+                elementId : "previewGrow",
+                event : "onclick"
+              }));
+              Spring.addDecoration( new Spring.AjaxEventDecoration({
+                elementId : "previewGrow",
+                event : "onclick",
+                formId : "soilErosionForm",
+                params : { fragments : "controls" }
+              }));
+            </script></div>
+        </li>
       </ul>
     </fieldset>
   </div>
   <div id="coverages">
     <fieldset>
       <legend>Data Coverages:</legend>
-      <ul>
+      <ul id="coveragesList">
         <li>
           <label>Rainfall Coverage:</label>
           <form:input path="rainfallWcs" />
@@ -84,7 +80,8 @@
               elementId : "rainfallWcs",
               widgetType : "dijit.form.SimpleTextarea",
               widgetAttrs : {
-                required : true
+                required : true,
+                cols : 30
               }
             }));
           </script>
@@ -97,7 +94,8 @@
               elementId : "landcoverWcs",
               widgetType : "dijit.form.SimpleTextarea",
               widgetAttrs : {
-                required : true
+                required : true,
+                cols : 30
               }
             }));
           </script>
@@ -110,7 +108,8 @@
               elementId : "erosionWcs",
               widgetType : "dijit.form.SimpleTextarea",
               widgetAttrs : {
-                required : true
+                required : true,
+                cols : 30
               }
             }));
           </script>

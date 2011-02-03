@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <fieldset>
   <legend>Map Content Control:</legend>
-  <ul>
+  <ul id="contentList">
     <li>
       <input id="baseLayerCheckBox" type="checkbox" checked="checked" onclick="toggleLayer(baselayer, 'baseLayerCheckBox')" />
       <label for="baseLayerCheckBox">Base Layer</label>

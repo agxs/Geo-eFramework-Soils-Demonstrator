@@ -5,7 +5,10 @@
   top: 0px;
   right: 0px;
   bottom: 0px;
-  left: 300px;
+  left: 325px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
 }
 
 #tools {
@@ -26,4 +29,33 @@ fieldset {
 #widget_growFactor,
 #widget_streamConnectivity {
   width: 50px;
+  margin: 5px;
+}
+
+#contentList,
+#variablesList,
+#coveragesList {
+  padding: 0px;
+  margin: 0px;
+}
+
+#contentList li,
+#variablesList li,
+#coveragesList li {
+  list-style-type: none;
+}
+
+input {
+  text-align: right;
+}
+
+#variables label {
+  float: left;
+  width: 65%;
+  text-align: right;
+  margin: 5px;
+}
+
+#preview {
+  text-align: center;
 }
