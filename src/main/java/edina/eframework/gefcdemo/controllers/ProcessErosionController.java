@@ -79,11 +79,10 @@ public class ProcessErosionController {
   }
   
   @RequestMapping(method = RequestMethod.POST,params="ajaxSource=previewGrow")
-  public String handlePreviewGrow( SoilErosionWps params,
-                                   @ModelAttribute WpsResponse wpsResponse )
+  public String handlePreviewGrow( SoilErosionWps params )
     throws IOException, JAXBException {
     
-    generateWpsRequest( params, wpsResponse, growTemplateLocation, wpsOutputDir + "/aseales/landcoverPreview.tiff" );
+    generateWpsRequest( params, new WpsResponse(), growTemplateLocation, wpsOutputDir + "/aseales/landcoverPreview.tiff" );
     mapserverGenerator.generateLandcoverConfiguration( "aseales" );
     
     return "gefcdemo";
@@ -91,7 +90,7 @@ public class ProcessErosionController {
   
   @RequestMapping(method = RequestMethod.POST,params="ajaxSource=submitProcess")
   public String handleProcessResult( SoilErosionWps params,
-                                     @ModelAttribute WpsResponse wpsResponse )
+                                     @ModelAttribute("wpsResponse") WpsResponse wpsResponse )
     throws IOException, JAXBException {
     
     generateWpsRequest( params, wpsResponse, templateLocation, wpsOutputDir + "/aseales/result.tiff" );

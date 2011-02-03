@@ -18,6 +18,7 @@
       var landcoverPreview = null; // the landcover preview OpenLayers.layer object
       var cacheControl = 0; // dummy parameter to stop map caching
       var lastButton = ''; // String - stores the last hit form button for handling responses
+      var downloadUrl = ''; // String - stores url to download of wps response
       function init() {
         dojo.connect( Spring.RemotingHandler.prototype, 'handleResponse', this, 'gefcResponseHandler' );
       }

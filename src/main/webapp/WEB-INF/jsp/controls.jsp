@@ -120,27 +120,38 @@
   <div id="process">
     <fieldset>
       <legend>Process:</legend>
-      <input id="submitProcess" type="submit" value="Submit Process" onclick="lastButton = 'submitProcess'"/>
-      <script type="text/javascript">
-        Spring.addDecoration( new Spring.ValidateAllDecoration({
-          elementId : "submitProcess",
-          event : "onclick"
-        }));
-        Spring.addDecoration( new Spring.AjaxEventDecoration({
-          elementId : "submitProcess",
-          event : "onclick",
-          formId : "soilErosionForm",
-          params : { fragments : "controls" }
-        }));
-      </script>
-      <c:if test="${!empty wpsResponse.outputUrl}">
-        <a href="<c:out value="${wpsResponse.outputUrl}" />">Download Output</a>
-      </c:if>
+      <div>
+        <input id="submitProcess" type="submit" value="Submit Process" onclick="lastButton = 'submitProcess'"/>
+        <script type="text/javascript">
+          Spring.addDecoration( new Spring.ValidateAllDecoration({
+            elementId : "submitProcess",
+            event : "onclick"
+          }));
+          Spring.addDecoration( new Spring.AjaxEventDecoration({
+            elementId : "submitProcess",
+            event : "onclick",
+            formId : "soilErosionForm",
+            params : { fragments : "controls" }
+          }));
+        </script>
+      </div>
+      <div id="downloadLink">
+        <script type="text/javascript">
+        <c:if test="${!empty wpsResponse.outputUrl}">
+          <c:out value="downloadUrl = '${wpsResponse.outputUrl}';" escapeXml="false" />
+        </c:if>
+      
+        if ( downloadUrl != '' ) {
+          var downloadLink = document.getElementById( 'downloadLink' );
+          downloadLink.innerHTML = '<a href="' + downloadUrl + '">Download Output</a>';
+        }
+        </script>
+      </div>
     </fieldset>
-    <c:if test="${param['simple']}">
-      <script type="text/javascript">
-        document.getElementById('coverages').style.display = "none";
-      </script>
-    </c:if>
   </div>
 </form:form>
+<c:if test="${param['simple']}">
+  <script type="text/javascript">
+    document.getElementById('coverages').style.display = "none";
+  </script>
+</c:if>
