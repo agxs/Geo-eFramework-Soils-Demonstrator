@@ -51,12 +51,22 @@
       {
         layers : "erosion",
         image : "image/png",
-        transparent : true,
-        myprop : 3
+        transparent : true
       }
     );
-  erosion['z'] = 4;
-  map.addLayer(baselayer);
+  erosion['z'] = 4; // 3 is reserved for the landcover preview
+  var places = new OpenLayers.Layer.WMS(
+      "eframework_places",
+      '<c:out value="${configParameters.placesUrl}" />',
+      {
+        layers : "eframework_places",
+        image : "image/png",
+        transparent : true
+      }
+    );
+  places['z'] = 6; // 5 is reserved for the result
+  
+  map.addLayers([baselayer,places]);
   
   map.addControl( new OpenLayers.Control.Navigation() );
   map.addControl( new OpenLayers.Control.Scale() );

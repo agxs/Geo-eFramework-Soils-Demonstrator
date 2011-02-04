@@ -44,6 +44,7 @@ public class MapController {
     configParameters.setResultUrl( config.getString( "result.url" ) + "map=" +
                                    config.getString( "wps.output.location" ) +
                                    "aseales/result.map&" );
+    configParameters.setPlacesUrl( config.getString( "places.url" ) );
     
     return "gefcdemo";
   }
