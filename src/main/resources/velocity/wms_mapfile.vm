@@ -22,7 +22,7 @@ MAP
       "wms_contactfacsimiletelephone" "0131 650 3308"
       "wms_contactelectronicmailaddress" "edina@ed.ac.uk"
       "wms_onlineresource" "${resultUrl}map=${dataFolder}${user}/result.map&"
-      "wms_srs" "EPSG:27700 EPSG:4326"
+      "wms_srs" "EPSG:27700 EPSG:4326 EPSG:900913"
     END
   END
 
@@ -35,7 +35,7 @@ LAYER
 
   METADATA
     "wms_title" "Gefc Result"
-    "wms_srs"   "EPSG:27700 EPSG:4326"
+    "wms_srs"   "EPSG:27700 EPSG:4326 EPSG:900913"
     "wms_extent" "0.0 0.0 700000.0 1300000.0"
   END
 

@@ -34,7 +34,6 @@ public class MapController {
     params.setLandcoverWcs( new URL( config.getString( "landcoverWcs.default" ) ) );
     params.setErosionWcs( new URL( config.getString( "erosionWcs.default" ) ) );
     
-    configParameters.setBaselayerUrl( config.getString( "baselayer.url" ) );
     configParameters.setRainfallUrl( config.getString( "rainfall.url" ) );
     configParameters.setLandCoverUrl( config.getString( "landcover.url" ) );
     configParameters.setErosionUrl( config.getString( "erosion.url" ) );

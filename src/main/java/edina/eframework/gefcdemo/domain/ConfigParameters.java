@@ -10,21 +10,12 @@ package edina.eframework.gefcdemo.domain;
  * @author Andrew Seales
  */
 public class ConfigParameters {
-  private String baselayerUrl;
   private String rainfallUrl;
   private String landCoverUrl;
   private String landCoverPreviewUrl;
   private String erosionUrl;
   private String resultUrl;
   private String placesUrl;
-  
-  public String getBaselayerUrl() {
-    return baselayerUrl;
-  }
-  
-  public void setBaselayerUrl( String baselayerUrl ) {
-    this.baselayerUrl = baselayerUrl;
-  }
   
   public String getRainfallUrl() {
     return rainfallUrl;
