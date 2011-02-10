@@ -40,6 +40,9 @@
       <div id="content">
         <tiles:insertAttribute name="content" />
       </div>
+      <div id="legend">
+        <tiles:insertAttribute name="legend" />
+      </div>
       <div id="controls">
         <tiles:insertAttribute name="controls" />
       </div>

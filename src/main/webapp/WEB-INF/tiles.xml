@@ -10,11 +10,13 @@
     <put-attribute name="map" value="map" />
     <put-attribute name="controls" value="controls" />
     <put-attribute name="content" value="content" />
+    <put-attribute name="legend" value="legend" />
   </definition>
   
   <definition name="map" template="/WEB-INF/jsp/map.jsp" />
   <definition name="controls" template="/WEB-INF/jsp/controls.jsp" />
   <definition name="content" template="/WEB-INF/jsp/content.jsp" />
+  <definition name="legend" template="/WEB-INF/jsp/legend.jsp" />
   
   <!--  Temp -->
   <definition name="wps" template="/WEB-INF/jsp/wps.jsp" />
