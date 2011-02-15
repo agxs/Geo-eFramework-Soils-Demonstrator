@@ -34,14 +34,7 @@
     var element = document.getElementById( elementName );
     if ( element.checked ) {
       map.addLayer( layer );
-      // Re-orders the layers to make sure they are in the correct order
-      for ( i = 0; i < map.getNumLayers(); i++ ) {
-        var mapLayer = map.layers[i];
-        if ( mapLayer['z'] > layer['z'] ) {
-          map.setLayerIndex( layer, map.getLayerIndex( mapLayer ) );
-          break;
-        }
-      }
+      reorderLayers( layer );
     } else {
       map.removeLayer( layer );
     }
@@ -71,6 +64,7 @@
     if ( resultCheckBox.checked ) {
       map.addLayer( result );
       map.setLayerIndex( result, 5 );
+      reorderLayers( result );
     }
   }
   function enableLandcover() {
@@ -98,6 +92,17 @@
     if ( landcoverPreviewCheckBox.checked ) {
       map.addLayer( landcoverPreview );
       map.setLayerIndex( landcoverPreview, 3 );
+      reorderLayers( landcoverPreview );
+    }
+  }
+  function reorderLayers( layer ) {
+    // Re-orders the layers to make sure they are in the correct order
+    for ( i = 0; i < map.getNumLayers(); i++ ) {
+      var mapLayer = map.layers[i];
+      if ( mapLayer['z'] > layer['z'] ) {
+        map.setLayerIndex( layer, map.getLayerIndex( mapLayer ) );
+        break;
+      }
     }
   }
 </script>
