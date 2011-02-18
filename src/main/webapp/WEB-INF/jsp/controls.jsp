@@ -37,7 +37,7 @@
         </li>
         <li>
           <label for="growFactor">Grow Factor:</label>
-          <form:input path="growFactor" />
+          <form:input path="growFactor" /><span class="units">metres</span>
           <script type="text/javascript">
             Spring.addDecoration( new Spring.ElementDecoration({
               elementId : "growFactor",

@@ -74,11 +74,16 @@ input {
 
 #variables label {
   float: left;
-  width: 65%;
+  width: 55%;
   text-align: right;
+  font-size: small;
   margin: 5px;
 }
 
 #preview {
   text-align: center;
+}
+
+.units {
+  font-size: x-small;
 }
