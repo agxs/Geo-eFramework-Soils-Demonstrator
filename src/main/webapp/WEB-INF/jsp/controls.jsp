@@ -137,8 +137,9 @@
       </div>
       <div id="downloadLink">
         <script type="text/javascript">
-        <c:if test="${!empty wpsResponse.outputUrl}">
-          <c:out value="downloadUrl = '${wpsResponse.outputUrl}';" escapeXml="false" />
+        <c:if test="${!empty wpsResponse.outputId}">
+          <c:out value="var downloadId = '${wpsResponse.outputId}';" escapeXml="false" />
+          downloadUrl = 'ErosionResult.tiff?id=' + downloadId;
         </c:if>
       
         if ( downloadUrl != '' ) {

@@ -143,6 +143,8 @@ public class ProcessErosionController {
     
     System.out.println( "Output " + resultUrl );
     wpsResponse.setOutputUrl( new URL( resultUrl ) );
+    wpsResponse.setOutputId( resultUrl.substring( resultUrl.lastIndexOf( "id=" ) + 3,
+                                                  resultUrl.length() ) );
     wpsResponse.setStatus( 200 );
 
     // Save the WPS output data to a file mapserver can use

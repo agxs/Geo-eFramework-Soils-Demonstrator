@@ -33,6 +33,11 @@
     <url-pattern>/processmodel</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>gefcdemo</servlet-name>
+    <url-pattern>/ErosionResult.tiff</url-pattern>
+  </servlet-mapping>
+  
   <!-- Spring JavaScript -->
   <servlet>
     <servlet-name>Resources Servlet</servlet-name>

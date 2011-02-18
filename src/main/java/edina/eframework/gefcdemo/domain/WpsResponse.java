@@ -9,6 +9,7 @@ import java.net.URL;
  */
 public class WpsResponse {
   private URL outputUrl;
+  private String outputId;
   private int status;
   
   /**
@@ -29,6 +30,24 @@ public class WpsResponse {
    */
   public void setOutputUrl( URL outputUrl ) {
     this.outputUrl = outputUrl;
+  }
+  
+  /**
+   * The download id from the wps indicating what result has just been created.
+   * 
+   * @return the id of the processed wps request.
+   */
+  public String getOutputId() {
+    return outputId;
+  }
+  
+  /**
+   * The download id from the wps indicating what result has just been created.
+   * 
+   * @param outputId the id of the processed wps request.
+   */
+  public void setOutputId( String outputId ) {
+    this.outputId = outputId;
   }
   
   public int getStatus() {
