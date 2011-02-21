@@ -87,3 +87,8 @@ input {
 .units {
   font-size: x-small;
 }
+
+.dojoBlockOverlay {
+  background: url(../images/loading.gif) no-repeat center center;
+  background-color: #E4E4E4 !important;
+}
