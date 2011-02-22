@@ -20,7 +20,7 @@
     </li>
     <li>
       <input id="erosionCheckBox" type="checkbox" onclick="toggleLayer(erosion, 'erosionCheckBox')" />
-      <label for="erosionCheckBox">Erosion</label>
+      <label for="erosionCheckBox">Erosion Coefficients</label>
     </li>
     <li>
       <input id="resultCheckBox" type="checkbox" disabled="disabled" onclick="toggleLayer(result, 'resultCheckBox')" />

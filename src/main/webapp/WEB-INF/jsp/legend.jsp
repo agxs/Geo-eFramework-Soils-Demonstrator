@@ -16,7 +16,7 @@
       </div>
     </li>
     <li>
-      <div class="legendTitle">Erosion:</div>
+      <div class="legendTitle">Erosion Coefficients:</div>
       <div class="legendImage"><img src="images/erosion_legend.png" alt="Erosion Legend" width="100" height="20" /></div>
       <div class="legendTextLeft">1 t/km<sup>2</sup>/yr/mm<sup>2</sup></div>
       <div class="legendTextRight">51 t/km<sup>2</sup>/yr/mm<sup>2</sup></div>
