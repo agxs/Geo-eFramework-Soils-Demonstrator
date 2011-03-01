@@ -1,146 +1,192 @@
-// Blocker code from:
-// http://www.sitepen.com/blog/2008/10/17/dojo-building-blocks-of-the-web/
+var g_baselayer = null; // baselayer OpenLayers.layer object
+var g_rainfall = null; // rainfall OpenLayers.layer object
+var g_landcover = null; // landcover OpenLayers.layer object
+var g_erosion = null; // erosion OpenLayers.layer object
+var g_result = null;  // the result OpenLayers.layer object
+var g_landcoverPreview = null; // the landcover preview OpenLayers.layer object
+var g_cacheControl = 0; // dummy parameter to stop map caching
+var g_lastButton = ''; // String - stores the last hit form button for handling responses
+var g_downloadUrl = ''; // String - stores url to download of wps response
+var g_blockedDiv; // Div that is shown/hidden over the form to block input
+var g_map; // The OpenLayers.Map object
 
-dojo.provide("dojox.ext-dojo.Block");
-(function(){
-    // a simple shallow alias
-    var d = dojo;
-    
-    d.declare("dojo._Blocker", null, {
-        // summary: The blocker instance used by dojo.block to overlay a node
-        //
-        // duration: Integer
-        //      The duration of the fadeIn/fadeOut for the overlay
-        duration: 400, 
-        
-        // opacity: Float
-        //      The final opacity of the overlay. A number from 0 to 1
-        opacity: 0.6,
-        
-        // backgroundColor: String
-        //      The color to set the overlay
-        backgroundColor: "#fff",
-        
-        // zIndex: Integer
-        //      The z-index to apply to the overlay, should you need to adjust for higher elements
-        zIndex: 999,
-        
-        constructor: function(node, args){
-            // the constructor function is always called by dojo.declare. 
-            // first, mixin any passed args into this instance to override defaults, or hook in custom stuff
-            d.mixin(this, args);
-            // in-case someone passed node:"something", force this.node to be the first param 
-            this.node = d.byId(node);
-            // create a node for our overlay.
-            this.overlay = d.doc.createElement('div');
+/**
+ * Body on load init method.
+ */
+function init() {
+  dojo.connect( Spring.RemotingHandler.prototype, 'handleResponse', this, 'gefcResponseHandler' );
+  dojo.connect( Spring.RemotingHandler.prototype, 'submitForm', this, 'gefcSubmitHandler' );
+}
 
-            // do some chained magic nonsense
-            d.query(this.overlay)
-                // make it the last-child of <body>
-                .place(d.body(),"last")
-                // give it a common class
-                .addClass("dojoBlockOverlay")
-                // mixin our styles. I'd prefer to do this purly in CSS, but that would 
-                // require external css somehow, and is an extra file. ;)
-                .style({
-                    backgroundColor: this.backgroundColor,
-                    position: "absolute",
-                    zIndex: this.zIndex,
-                    display: "none",
-                    opacity: this.opacity
-                });
+/**
+ * Response handler for AJAX requests. This method is ran after every AJAX
+ * response is received.
+ */
+function gefcResponseHandler() {
+  // Unblock form input div after result
+  dojo.query(g_blockedDiv).unblock();
+  
+  // Enable map tickboxes after a submit
+  if ( g_lastButton == 'submitProcess' ) {
+    enableResult();
+  }
+  else if ( g_lastButton == 'previewGrow' ) {
+    enableLandcover();
+  }
+}
 
-        },
-        
-        show: function(){
-            // summary: Show this overlay 
-            var pos = d.coords(this.node, true),
-                ov = this.overlay;
+/**
+ * Submit handler for AJAX requests. This method is ran before every AJAX
+ * request is sent.
+ */
+function gefcSubmitHandler() {
+  // Block form input to stop multiple submits
+  g_blockedDiv = dojo.query( '#controls' ).block()[0];
+}
 
-            d.marginBox(ov, pos);
-            d.style(ov, { opacity:0, display:"block" });
-            d._fade({ node:ov, end: this.opacity, duration: this.duration }).play();
-        },
-        
-        hide: function(){
-            // summary: Hide this overlay
-            d.fadeOut({ 
-                node: this.overlay,
-                duration: this.duration, 
-                // when the fadeout is done, set the overlay to display:none
-                onEnd: d.hitch(this, function(){
-                    d.style(this.overlay, "display", "none");
-                })
-            }).play();
-        }
-        
-    });
+/**
+ * Initialises the OpenLayers map. Adds all the WMS layers
+ * @returns
+ */
+function initMap() {
+  var bounds = new OpenLayers.Bounds( -20037508.34, -20037508.34, 20037508.34, 20037508.34 );
+  g_map = new OpenLayers.Map({
+    controls: [],
+    div : "map",
+    allOverlays : true,
+    projection: new OpenLayers.Projection( "EPSG:900913" ),
+    units: "m",
+    maxExtent: bounds
+  });
+  g_baselayer = new OpenLayers.Layer.OSM();
+  g_baselayer['z'] = 0;
+  g_rainfall = new OpenLayers.Layer.WMS(
+      "rainfall",
+      g_rainfallWms,
+      {
+        layers : "rainfall",
+        image : "image/png",
+        transparent : true
+      }
+    );
+  g_rainfall['z'] = 1;
+  g_landcover = new OpenLayers.Layer.WMS(
+      "landcover",
+      g_landcoverWms,
+      {
+        layers : "landcover",
+        image : "image/png",
+        transparent : true
+      }
+    );
+  g_landcover['z'] = 2;
+  g_erosion = new OpenLayers.Layer.WMS(
+      "erosion",
+      g_erosionWms,
+      {
+        layers : "erosion",
+        image : "image/png",
+        transparent : true
+      }
+    );
+  g_erosion['z'] = 4; // 3 is reserved for the landcover preview
+  g_places = new OpenLayers.Layer.WMS(
+      "eframework_places",
+      g_placesWms,
+      {
+        layers : "eframework_places",
+        image : "image/png",
+        transparent : true
+      }
+    );
+  g_places['z'] = 6; // 5 is reserved for the result
+  
+  g_map.addLayers([g_baselayer,g_places]);
+  
+  g_map.addControl( new OpenLayers.Control.Navigation() );
+  g_map.addControl( new OpenLayers.Control.Scale() );
+  g_map.addControl( new OpenLayers.Control.PanZoomBar() );
+  g_map.addControl( new OpenLayers.Control.MousePosition() );
+  
+  g_map.zoomToExtent( new OpenLayers.Bounds( -2400000, 5500000, 1500000, 9000000 ),
+                      true );
+}
 
-    // Generates a unique id for a node
-    var id_count = 0; 
-    var _uniqueId = function(){
-        var id_base = "dojo_blocked",
-            id;
-        do{
-            id = id_base + "_" + (++id_count);
-        }while(d.byId(id));
-        return id;
+function toggleLayer( layer, elementName ) {
+  var element = document.getElementById( elementName );
+  if ( element.checked ) {
+    g_map.addLayer( layer );
+    reorderLayers( layer );
+  } else {
+    g_map.removeLayer( layer );
+  }
+}
+
+function enableResult() {
+  if ( g_simple ) {
+    document.getElementById('coverages').style.display = "none";
+  }
+
+  var resultCheckBox = document.getElementById( "resultCheckBox" );
+  resultCheckBox.removeAttribute( "disabled" );
+  
+  if ( g_result != null ) {
+    g_result.destroy();
+  }
+  g_result = new OpenLayers.Layer.WMS(
+      "gefc_result",
+      g_resultWms + 'cacheControl=' + (g_cacheControl++) + '&amp;',
+      {
+        layers : "gefc_result",
+        image : "image/png",
+        transparent : true
+      }
+    );
+  g_result['z'] = 5;
+  // Make sure to insert this new layer at the top of the stack
+  if ( resultCheckBox.checked ) {
+    g_map.addLayer( g_result );
+    g_map.setLayerIndex( g_result, 5 );
+    reorderLayers( g_result );
+  }
+}
+
+function enableLandcover() {
+  if ( g_simple ) {
+    document.getElementById('coverages').style.display = "none";
+  }
+
+  var landcoverPreviewCheckBox = document.getElementById( "landcoverPreviewCheckBox" );
+  landcoverPreviewCheckBox.removeAttribute( "disabled" );
+  
+  if ( g_landcoverPreview != null ) {
+    g_landcoverPreview.destroy();
+  }
+  g_landcoverPreview = new OpenLayers.Layer.WMS(
+      "landcoverPreview",
+      g_landcoverPreviewWms + 'cacheControl=' + (g_cacheControl++) + '&amp;',
+      {
+        layers : "landcoverPreview",
+        image : "image/png",
+        transparent : true
+      }
+    );
+  g_landcoverPreview['z'] = 3;
+  // Make sure to insert this new layer at the top of the stack
+  if ( landcoverPreviewCheckBox.checked ) {
+    g_map.addLayer( g_landcoverPreview );
+    g_map.setLayerIndex( g_landcoverPreview, 3 );
+    reorderLayers( g_landcoverPreview );
+  }
+}
+
+function reorderLayers( layer ) {
+  // Re-orders the layers to make sure they are in the correct order
+  for ( i = 0; i < g_map.getNumLayers(); i++ ) {
+    var mapLayer = g_map.layers[i];
+    if ( mapLayer['z'] > layer['z'] ) {
+      g_map.setLayerIndex( layer, g_map.getLayerIndex( mapLayer ) );
+      break;
     }
-
-    var blockers = {}; // hash of all blockers  
-    d.mixin(d, {
-        block: function(/* String|DomNode */node, /* dojo.block._blockArgs */args){
-            // summary: Overlay the passed node to prevent further input, creates an 
-            //      instance of dojo._Blocker attached to this node byId, or generates a
-            //      unique id if the node doesn't have one already.
-            //
-            //  node: The node to overlay
-            //  args: An object hash of configuration options. See dojo._Blocker for 
-            //      a list of parameters mixed in.
-            //
-            //  returns: The dojo._Blocker instance created for the passed node for convenience.
-            //      You can call var thing = dojo.block("someNode"); thing.hide(); or simply call 
-            //      dojo.unblock("someNode"), whichever you prefer.
-            var n = d.byId(node);
-            var id = d.attr(n, "id");
-            if(!id){
-                id = _uniqueId();
-                d.attr(n, "id", id);
-            }
-            if(!blockers[id]){
-                blockers[id] = new d._Blocker(node, args);
-            }
-            blockers[id].show();
-            return blockers[id]; // dojo._Blocker
-        },
-        
-        unblock: function(node, args){
-            // summary: Unblock the passed node
-            var id = d.attr(node, "id");
-            if(id && blockers[id]){
-                blockers[id].hide();
-            }
-        }
-        
-    });
-    
-    d.extend(d.NodeList, {  
-        block: // d.NodeList._mapIn("block", true), // refs #7295
-            function(args){
-                // summary: Wraps dojo.block, calling it for each node in this NodeList
-                //      See dojo._Blocker and dojo.block for full list of passable parameters.
-                return this.forEach(function(n){
-                    d.block(n, args);
-                });
-            },
-        
-        unblock: // d.NodeList._mapIn("unblock", true) // refs #7295
-            function(args){
-                // summary: Wraps dojo.unblock, calling it for each node in this NodeList
-                return this.forEach(function(n){
-                    d.unblock(n, args);
-                });
-            }
-    });
-    
-})();
+  }
+}

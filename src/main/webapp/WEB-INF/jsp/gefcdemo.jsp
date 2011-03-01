@@ -13,34 +13,28 @@
     <script src="<c:url value="/resources/dojo/dojo.js" />" type="text/javascript"></script>
     <script src="<c:url value="/resources/spring/Spring.js" />" type="text/javascript"></script>
     <script src="<c:url value="/resources/spring/Spring-Dojo.js" />" type="text/javascript"></script>
+    <script src="javascript/blocker.js" type="text/javascript"></script>
     <script src="javascript/gefcdemo.js" type="text/javascript"></script>
     <script type="text/javascript">
-      var result = null;  // the result OpenLayers.layer object
-      var landcoverPreview = null; // the landcover preview OpenLayers.layer object
-      var cacheControl = 0; // dummy parameter to stop map caching
-      var lastButton = ''; // String - stores the last hit form button for handling responses
-      var downloadUrl = ''; // String - stores url to download of wps response
-      var blockedDiv; // Div that is shown/hidden over the form to block input
-      function init() {
-        dojo.connect( Spring.RemotingHandler.prototype, 'handleResponse', this, 'gefcResponseHandler' );
-        dojo.connect( Spring.RemotingHandler.prototype, 'submitForm', this, 'gefcSubmitHandler' );
-      }
-      function gefcResponseHandler() {
-        // Unblock form input div after result
-        dojo.query(blockedDiv).unblock();
-        
-        // Enable map tickboxes after a submit
-        if ( lastButton == 'submitProcess' ) {
-          enableResult();
-        }
-        else if ( lastButton == 'previewGrow' ) {
-          enableLandcover();
-        }
-      }
-      function gefcSubmitHandler() {
-        // Block form input to stop multiple submits
-        blockedDiv = dojo.query( '#controls' ).block()[0];
-      }
+      // Set up special globals using JSP
+      
+      // Simple interface or not
+      var g_simple = false;
+      <c:if test="${param['simple']}">
+        g_simple = true;
+      </c:if>
+      // Rainfall WMS url
+      var g_rainfallWms = '<c:out value="${configParameters.rainfallUrl}" />';
+      // Landcover WMS url
+      var g_landcoverWms = '<c:out value="${configParameters.landCoverUrl}" />';
+      // Erosion WMS url
+      var g_erosionWms = '<c:out value="${configParameters.erosionUrl}" />';
+      // Places WMS url
+      var g_placesWms = '<c:out value="${configParameters.placesUrl}" />';
+      // Result WMS url
+      var g_resultWms = '<c:out value="${configParameters.resultUrl}" />';
+      // Landcover Preview WMS urls
+      var g_landcoverPreviewWms = '<c:out value="${configParameters.landCoverPreviewUrl}" />';
     </script>
   </head>
   <body onload="init()">

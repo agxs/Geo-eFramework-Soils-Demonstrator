@@ -51,7 +51,7 @@
           </script>
         </li>
         <li><div id="preview">
-          <input id="previewGrow" type="submit" value="Preview Grow" onclick="lastButton = 'previewGrow'"/>
+          <input id="previewGrow" type="submit" value="Preview Grow" onclick="g_lastButton = 'previewGrow'"/>
             <script type="text/javascript">
               Spring.addDecoration( new Spring.ValidateAllDecoration({
                 elementId : "previewGrow",
@@ -121,7 +121,7 @@
     <fieldset>
       <legend>Process:</legend>
       <div>
-        <input id="submitProcess" type="submit" value="Submit Process" onclick="lastButton = 'submitProcess'"/>
+        <input id="submitProcess" type="submit" value="Submit Process" onclick="g_lastButton = 'submitProcess'"/>
         <script type="text/javascript">
           Spring.addDecoration( new Spring.ValidateAllDecoration({
             elementId : "submitProcess",
@@ -139,20 +139,20 @@
         <script type="text/javascript">
         <c:if test="${!empty wpsResponse.outputId}">
           <c:out value="var downloadId = '${wpsResponse.outputId}';" escapeXml="false" />
-          downloadUrl = 'ErosionResult.tiff?id=' + downloadId;
+          g_downloadUrl = 'ErosionResult.tiff?id=' + downloadId;
         </c:if>
       
-        if ( downloadUrl != '' ) {
+        if ( g_downloadUrl != '' ) {
           var downloadLink = document.getElementById( 'downloadLink' );
-          downloadLink.innerHTML = '<a href="' + downloadUrl + '">Download Output</a>';
+          downloadLink.innerHTML = '<a href="' + g_downloadUrl + '">Download Output</a>';
         }
         </script>
       </div>
     </fieldset>
   </div>
 </form:form>
-<c:if test="${param['simple']}">
-  <script type="text/javascript">
+<script type="text/javascript">
+  if ( g_simple ) {
     document.getElementById('coverages').style.display = "none";
-  </script>
-</c:if>
+  }
+</script>
