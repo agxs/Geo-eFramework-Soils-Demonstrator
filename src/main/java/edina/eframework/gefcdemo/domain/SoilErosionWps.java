@@ -5,7 +5,7 @@ import java.net.URL;
 /**
  * This domain object stores the user customisable parameters from the main
  * interface. The data stored in this object is used to create a WPS request
- * to calculate the soil erosion model. A betetr explaination of the parameters
+ * to calculate the soil erosion model. A better explanation of the parameters
  * can be found in the paper "An erosion model for evaluating regional land-use
  * scenarios" by John Dymond, et al.
  * 

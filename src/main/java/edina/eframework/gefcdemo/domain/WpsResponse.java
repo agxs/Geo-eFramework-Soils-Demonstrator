@@ -50,10 +50,20 @@ public class WpsResponse {
     this.outputId = outputId;
   }
   
+  /**
+   * The response code from the WPS request. 200 is a success.
+   * 
+   * @return the response code from the WPS request.
+   */
   public int getStatus() {
     return status;
   }
   
+  /**
+   * The response code from the WPS request. 200 is a success.
+   * 
+   * @param status the response code from the WPS request.
+   */
   public void setStatus( int status ) {
     this.status = status;
   }

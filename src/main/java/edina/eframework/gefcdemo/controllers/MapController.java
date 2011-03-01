@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import edina.eframework.gefcdemo.domain.ConfigParameters;
 import edina.eframework.gefcdemo.domain.SoilErosionWps;
 
+/**
+ * This controller is the main controller for the user interface. It is used
+ * to initialise the basic model object that the application needs.
+ * 
+ * @author Andrew Seales
+ */
 @Controller
 @RequestMapping(value="/gefcdemo")
 public class MapController {

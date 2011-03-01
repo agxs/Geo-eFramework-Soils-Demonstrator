@@ -10,12 +10,12 @@ package edina.eframework.gefcdemo.domain;
  * @author Andrew Seales
  */
 public class ConfigParameters {
-  private String rainfallUrl;
-  private String landCoverUrl;
-  private String landCoverPreviewUrl;
-  private String erosionUrl;
-  private String resultUrl;
-  private String placesUrl;
+  private String rainfallUrl; // URL to WMS preview of rainfall data
+  private String landCoverUrl; // URL to WMS preview of landcover data
+  private String landCoverPreviewUrl; // URL for generated landcover WMS preview
+  private String erosionUrl; // URL to WMS preview of erosion coefficient data
+  private String resultUrl; // URL to WMS preview of the result data
+  private String placesUrl; // URL to the city and coast outline data
   
   public String getRainfallUrl() {
     return rainfallUrl;
