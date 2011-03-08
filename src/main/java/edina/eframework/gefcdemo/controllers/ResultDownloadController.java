@@ -9,6 +9,8 @@ import java.net.URL;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.configuration.Configuration;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping(value="/ErosionResult.tiff")
 public class ResultDownloadController {
   
+  private static final Log log = LogFactory.getLog( ResultDownloadController.class );
+  
   private Configuration config;
   
   public void setConfig( Configuration config ) {
@@ -43,7 +47,7 @@ public class ResultDownloadController {
     // Retrieving the wps result url this way avoids using the session and keeps
     // the application stateless. Alternative would be to directly store the
     // wps output result url in the session instead in ProcessErosionController.
-    System.out.println( "Fetching id " + id );
+    log.debug( "Fetching id " + id );
     String wpsResultHost = config.getString( "wps.url.result" );
     URL wpsResult = new URL( wpsResultHost + "id=" + id );
     
