@@ -8,7 +8,7 @@
   <ows:Identifier>tikouka.nl.wps.algorithm.GrowFactorFacadeAlgorithm</ows:Identifier>
   <wps:DataInputs>
     <wps:Input>
-      <ows:Identifier>landuse</ows:Identifier>
+      <ows:Identifier>landcover</ows:Identifier>
       <wps:Reference mimeType="image/tiff" xlink:href="${params.landcoverWcs}" xmlns:xlink="http://www.w3.org/1999/xlink" />
     </wps:Input>
     <wps:Input>

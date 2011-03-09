@@ -8,22 +8,22 @@
   <ows:Identifier>tikouka.nl.wps.algorithm.SoilErosionAlgorithm</ows:Identifier>
   <wps:DataInputs>
     <wps:Input>
-      <ows:Identifier>nz_woody</ows:Identifier>
+      <ows:Identifier>landcover</ows:Identifier>
       <wps:Reference mimeType="image/tiff" xlink:href="${params.landcoverWcs}" xmlns:xlink="http://www.w3.org/1999/xlink" />
     </wps:Input>
     <wps:Input>
-      <ows:Identifier>nz_r2</ows:Identifier>
+      <ows:Identifier>rainfall</ows:Identifier>
       <wps:Reference mimeType="image/tiff" xlink:href="${params.rainfallWcs}" xmlns:xlink="http://www.w3.org/1999/xlink" />
     </wps:Input>
     <wps:Input>
-      <ows:Identifier>nz_ak2</ows:Identifier>
+      <ows:Identifier>erosionCoefficients</ows:Identifier>
       <wps:Reference mimeType="image/tiff" xlink:href="${params.erosionWcs}" xmlns:xlink="http://www.w3.org/1999/xlink" />
     </wps:Input>
     <wps:Input>
-      <ows:Identifier>nz_woody_lookup</ows:Identifier>
+      <ows:Identifier>landcoverLookup</ows:Identifier>
       <wps:Data>
         <wps:ComplexData schema="http://dlib-bauer.ucs.ed.ac.uk/RasterTable.xsd">
-          <RasterTable name="nz_woody_lookup">
+          <RasterTable name="landcoverLookup">
             <Table id="0" key="Water" value="0"/>
             <Table id="1" key="Woody" value="1"/>
             <Table id="10" key="Bare Ground" value="10" />
@@ -34,7 +34,7 @@
       </wps:Data>
     </wps:Input>
     <wps:Input>
-      <ows:Identifier xmlns:ns1="http://www.opengis.net/ows/1.1">rain_factor</ows:Identifier>
+      <ows:Identifier xmlns:ns1="http://www.opengis.net/ows/1.1">rainfallExponent</ows:Identifier>
       <wps:Data>
         <wps:LiteralData dataType="xs:double">${params.rainfallExponent}</wps:LiteralData>
       </wps:Data>
