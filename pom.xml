@@ -7,8 +7,8 @@
   <packaging>war</packaging>
   <name>GeFC Demonstrator</name>
   <scm>
-    <connection>scm:git:ssh://devel.edina.ac.uk/eframework/gefcdemo.git</connection>
-    <developerConnection>scm:git:ssh://devel.edina.ac.uk/eframework/gefcdemo.git</developerConnection>
+    <connection>scm:git:ssh://geodev@devel.edina.ac.uk/eframework/gefcdemo.git</connection>
+    <developerConnection>scm:git:ssh://geodev@devel.edina.ac.uk/eframework/gefcdemo.git</developerConnection>
   </scm>
   <build>
     <finalName>gefcdemo</finalName>
