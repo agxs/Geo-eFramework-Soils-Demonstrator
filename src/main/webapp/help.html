@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>GeFC Demonstrator Help</title>
+    <link rel="stylesheet" href="./css/help.css" type="text/css" />
+  </head>
+  <body>
+    <h1>GeFC Demonstrator Guide</h1>
+    <h2>Quick Guide</h2>
+    <p>
+      To get started quickly, simple adjust the numbers in the three boxes under
+      'Edit Variables' then hit 'Submit Process' right at the bottom. Once the
+      processing is complete(the busy icon will disappear) you can click the
+      'Result' checkbox in the top panel to display your data. You can also
+      download the data to your desktop machine by clicking the new link underneath
+      'Submit Process'.
+    </p>
+    <h2>Detailed Description</h2>
+    <ol>
+      <li>
+        <h4>Map Content Control</h4>
+        <p>
+          At the top of left panel is the 'Map Content Control'. This allows you
+          to toggle on and off the various datasets that the application uses. Three
+          datasets are available for preview, Rainfall, Landcover and Erosion Coefficients.
+          These three datasets never change.
+        </p>
+        <p>
+          Two checkboxes are greyed out when first visiting the application,
+          'Landcover Preview' and 'Result'. These are enabled when 'Preview Grow'
+          and 'Submit Process' are clicked. They are both dynamically calculated
+          datasets.
+        </p>
+      </li>
+      <li>
+        <h4>Legend</h4>
+        <p>
+          This panel describes what the various colours of the datasets represent.
+          Rainfall is measured in millimetres per year and the Erosion Coefficients
+          and results are measured in tons per square kilometre per year per
+          millimetre squared of rainfall.
+        </p>
+        <p>
+          The result representation is split into two gradients. Yellow to red
+          is defined as a 'low' level of erosion where as dark red to light red
+          is defined as a 'high' level of erosion.
+        </p>
+      </li>
+      <li>
+        <h4>Edit Variables</h4>
+        <p>
+          The three boxes provided in this panel allow the models parameters to
+          be customised. 'Rainfall Exponent' the value that the rainfall value
+          is raised to the power of. Valid ranges of this are between 1.5 and 2.5.
+        </p>
+        <p>
+          'Stream Connectivity' represents how much erosion is carried away by the
+          countries stream network. This is a linear value and valid numbers are
+          between 0 representing nothing is carried away and 1 representing 
+          everything is carried away.
+        </p>
+        <p>
+          'Grow Factor' is used to grow or shrink the about of woody/forest areas
+          that are in the 'Landcover' dataset. The values are in metres and they
+          will grow or shrink the discrete forest areas by that amount. Negative
+          values represent deforestation and positive values represent extra
+          forest growth.
+        </p>
+      </li>
+      <li>
+        <h4>Preview grow</h4>
+        <p>
+          This button processed the 'Landcover' dataset and will increase or
+          decrease the amount of forest area by the specified number of metres.
+          Clicking this activates the 'Landcover Preview' checkbox in the 'Map
+          Content Control' panel.
+        </p>
+      </li>
+      <li>
+        <h4>Data Coverages</h4>
+        <p>
+          These three WCS URLs are used to configure the input datasets used
+          when calculating the result of the model. These must point to WCS 1.0
+          servers and the format requested must be a GeoTIFF. Any &amp; symbol
+          (such as between parameters) must be URL escaped to look like &amp;amp;.
+        </p>
+      </li>
+      <li>
+        <h4>Process</h4>
+        <p>
+          The 'Submit Process' button will run the soil erosion model and create
+          a preview map overlay which can be viewed by clicking on the newly
+          enabled 'Result' checkbox in the top panel. If parameters are adjusted
+          and the submit button is pressed for a second time, the map will
+          automatically updated to draw the new result.
+        </p>
+      </li>
+      <li>
+        <h4>Download</h4>
+        <p>
+          Once the 'Submit Process' operation is complete a download link appears
+          underneath the button. Using this you can download the raw result to
+          load into a GIS application for further processing or analysis. Any
+          application used to read this file must support reading GeoTIFF images
+          using 32-bits per channel with floating point numbers as the data type.
+        </p>
+      </li>
+    </ol>
+  </body>
+</html>
