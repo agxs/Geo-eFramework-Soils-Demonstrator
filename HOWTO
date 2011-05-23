@@ -1,0 +1,74 @@
+Basic Installation Howto
+------------------------
+
+Requirements:
+-------------
+
+* Java 6
+* Tomcat 6+
+* 52N WPS with 52n-wps-tikouka plugin
+* A WCS 1.0 server(we used Geoserver)
+* A Minnesota Mapserver install
+
+Dataset Requirements:
+---------------------
+
+* Rainfall dataset - must be mean annual rainfall in millimetres(not millimetres squared).
+
+* Landcover - must correspond to the following raster lookup table:
+  Key 0 - Water
+  Key 1 - Woody Areas
+  Key 10 - Bare ground
+  Key 128 - Null Value
+  Key -9999 Null Value
+
+  This table is editable in src/main/resources/velocity/wps_request.vm. In addition some parameters in tikouka.nl.wps.algorithm.util.GrowFactorFacade in the 52n-wps-tikouka plugin will need altered if you want the grow factor function to work.
+
+* Erosion Coefficient - data must be a raster which uses the units from John Dymonds paper 'An erosion model for evaluating regional lans-use scenarios"
+
+* Vector coast and cities overlay - a vector overlay which simply has coast lines and major cities to aid navigation when viewing the above datasets. If this layer isn't required then it can be edited out of the gefcdemo.js file.
+
+Customising application properties:
+-----------------------------------
+
+Edit the file src/main/resources/gefcdemo.properties. Some of these properties will need to be customised to your environment.
+
+'wps.url' needs to point to the 52N WPS servlet. 'wps.url.result' should point to the WPS result servlet. It is unlikely that the servlet names in these properties will need to change, just the host, port and context path.
+
+'wps.output.location' should point to a folder that is writable by the web application and readable by the Minnesota Mapserver install. The WPS data is written to here and the WMS preview uses the same data.
+
+'rainfall.url' should point to a WMS which hosts the rainfall data.
+'landcover.url' should point to a WMS which hosts the landcover data.
+'erosion.url' should point to a WMS that hosts the erosion coefficient data.
+'places.url' should point to a WMS that hosts the vector coast/placename data.
+
+'result.url' should point to the Minnesota Mapserver server.
+
+'rainfallWcs.default', 'landcoverWcs.default', 'erosionWcs.default' should point to a WCS 1.0 server which hosts the respective datasets. These URLs should work if pasted into a browser. Note that &s should be URL encoded in this file.
+
+Compiling:
+----------
+
+Simply type "mvn package" to create a .war file in target/gefcdemo.war. Deploy this to your tomcat container. If the application has been successfully customised then go to the /gefcdemo/gefcdemo URL on your container and you should see the application. There is also a simplified interface which you can access by adding ?simple=true to the URL.
+
+Legend:
+-------
+
+The legend images are hard coded so will have to be manually regenerated depending on what style you use to represent the main three datasets above(the WMS GetLegendGraphic operation just didn't seem to do a good job of this at all).
+
+Default Map Location:
+-----------------
+
+The default bounding box for the map position can be set in gefcdemo.js
+
+Projection:
+-----------
+
+The default projection is EPSG:900913(ie, Google's projection). You may have to add the following line to your Proj.4 epsg file for Mapserver to understand it:
+# Google/OSM
+<900913> +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs
+
+Output:
+-------
+
+The application currently has a fixed output location for the result of the WPS processes. This is set in handlePreviewGrow and handleProcessResult methods in ProcessErosionController.java.
