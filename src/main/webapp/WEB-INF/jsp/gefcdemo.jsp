@@ -42,6 +42,9 @@
       <tiles:insertAttribute name="map" />
     </div>
     <div id="tools">
+      <div id="help">
+        <a href="help.html" onclick="window.open('./help.html', 'Help', 'status=1,width=550,resizable=1,scrollbars=1'); return false;">Help</a>
+      </div>
       <div id="content">
         <tiles:insertAttribute name="content" />
       </div>
