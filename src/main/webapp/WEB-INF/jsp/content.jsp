@@ -3,7 +3,7 @@
   <legend>Map Content Control:</legend>
   <ul id="contentList">
     <li>
-      <input id="baseLayerCheckBox" type="checkbox" checked="checked" onclick="toggleLayer(g_baselayer, 'baseLayerCheckBox')" />
+      <input id="baseLayerCheckBox" type="checkbox" checked="checked" onclick="toggleLayer(g_baselayer, 'baseLayerCheckBox')" disabled="disabled"/>
       <label for="baseLayerCheckBox">Base Layer</label>
     </li>
     <li>
