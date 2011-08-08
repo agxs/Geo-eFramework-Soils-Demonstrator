@@ -6,7 +6,7 @@ Requirements:
 
 * Java 6
 * Tomcat 6+
-* 52N WPS with 52n-wps-tikouka plugin
+* 52N WPS with 52n-wps-tikouka plugin(https://github.com/agxs/Soil-Erosion-WPS-Plugin)
 * A WCS 1.0 server(we used Geoserver)
 * A Minnesota Mapserver install
 
